@@ -1,0 +1,163 @@
+﻿@model AlumniPortal.Models.CompanyLoginModel
+
+@{
+    ViewBag.Title = "Company Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Alumni Portal</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
+    <style>
+        .navbar-custom {
+            background-color: #a52a2a; /* Pale maroon color */
+            width: 100%;
+            z-index: 1000; /* Ensure navbar is on top */
+            min-height: 4.5rem; /* Set minimum height for the navbar */
+            padding: 0.5rem 1rem; /* Adjust padding inside the navbar */
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-family: 'Cinzel', serif; /* Apply Cinzel font to navbar elements */
+            font-weight: 400; /* Apply Cinzel Regular (400) */
+            font-size: 20px; /* Increase font size for navbar text */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center; /* Center vertically */
+        }
+
+            .navbar-brand img {
+                height: 50px; /* Set image height */
+                margin-right: 10px; /* Adjust margin between image and text */
+            }
+
+        .nav-link.btn-primary {
+            font-weight: bold;
+            background-color: #e6be8a; /* Change button background color to #e6be8a */
+            border-color: #e6be8a; /* Match border color with background color */
+            color: black !important; /* Set initial text color to black */
+        }
+
+            .nav-link.btn-primary:hover {
+                font-weight: bold;
+                background-color: #cc9f54; /* Slightly darker hover background color */
+                border-color: #cc9f54; /* Match hover border color with hover background color */
+                color: white !important; /* Change text color to white on hover */
+            }
+
+        .h-container {
+            font-family: "Noto Sans", serif;
+            max-width: 100%;
+            margin-left: 20px;
+        }
+
+        .user-type-option {
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .user-type-option:hover {
+                background-color: #f0f0f0;
+            }
+
+        /* Style for the buttons */
+        .btn-dynamic {
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background-color: #e6be8a; /* Button background color */
+            border-color: #e6be8a; /* Button border color */
+            color: black;
+        }
+
+            .btn-login:hover {
+                background-color: #cc9f54; /* Hover background color */
+                border-color: #cc9f54; /* Hover border color */
+                color: white; /* Hover text color */
+            }
+
+        .btn-home {
+            background-color: #f8f9fa; /* Button background color */
+            border-color: #ced4da; /* Button border color */
+            color: black;
+        }
+
+            .btn-home:hover {
+                background-color: #e2e6ea; /* Hover background color */
+                border-color: #dae0e5; /* Hover border color */
+                color: black; /* Hover text color */
+            }
+
+        .form-group {
+            margin-bottom: 1.5rem; /* Adjust margin to create space between form fields */
+            margin-left: 20px;
+        }
+
+        .button-container {
+            margin-top: 2rem; /* Adjust margin to create space above buttons */
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+            <!-- Add 'fixed-top' class to navbar -->
+            <a class="navbar-brand text-white" href="/">
+                <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
+                PUP Alumni Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+    <div class="h-container">
+        <h1><b>Company Login</b></h1>
+    </div>
+
+    @using (Html.BeginForm("LoginCompany", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.comp_email)
+            @Html.TextBoxFor(m => m.comp_email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.comp_email)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.comp_password)
+            @Html.PasswordFor(m => m.comp_password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.comp_password)
+        </div>
+        <div class="form-group button-container">
+            <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-secondary btn-home">Back</button>
+            <input type="submit" value="Login" class="btn btn-primary btn-login mr-2" />
+        </div>
+    }
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

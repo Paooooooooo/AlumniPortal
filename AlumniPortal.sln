@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlumniPortal", "AlumniPortal\AlumniPortal.csproj", "{BA179A9F-931A-4EA7-B668-66AAD57EABB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA179A9F-931A-4EA7-B668-66AAD57EABB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA179A9F-931A-4EA7-B668-66AAD57EABB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA179A9F-931A-4EA7-B668-66AAD57EABB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA179A9F-931A-4EA7-B668-66AAD57EABB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA0C5FFD-4E14-4131-9529-FD4E4F6D01E6}
+	EndGlobalSection
+EndGlobal

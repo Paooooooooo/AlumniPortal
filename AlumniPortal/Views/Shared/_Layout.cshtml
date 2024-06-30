@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - PUP ALUMNI AND CAREER PORTAL</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <!-- Your header content here -->
+        </header>
+        <div class="container body-content">
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            <div class="footer-content">
+                <p>&copy; @DateTime.Now.Year - PUP Alumni and Career Portal</p>
+            </div>
+        </footer>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

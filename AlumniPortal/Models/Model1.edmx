@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AlumPortalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin_acc_tbl">
+          <Key>
+            <PropertyRef Name="admin_acc_id" />
+          </Key>
+          <Property Name="admin_acc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="admin_id" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="admin_tbl">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="admin_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_con" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="admin_password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alum_acc_tbl">
+          <Key>
+            <PropertyRef Name="alum_acc_id" />
+          </Key>
+          <Property Name="alum_acc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="alum_num" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alum_tbl">
+          <Key>
+            <PropertyRef Name="alum_num" />
+          </Key>
+          <Property Name="alum_num" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dept_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="alum_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="alum_sex" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="alum_bdate" Type="date" Nullable="false" />
+          <Property Name="yr_grad" Type="int" Nullable="false" />
+          <Property Name="alum_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="alum_con" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="alum_password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comp_acc_tbl">
+          <Key>
+            <PropertyRef Name="comp_acc_id" />
+          </Key>
+          <Property Name="comp_acc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="comp_id" Type="int" Nullable="false" />
+          <Property Name="comp_email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comp_tbl">
+          <Key>
+            <PropertyRef Name="comp_id" />
+          </Key>
+          <Property Name="comp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comp_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comp_con_num" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="comp_con_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comp_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comp_address" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="comp_password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cv_tbl">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alum_num" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="experiences" Type="varchar(max)" />
+          <Property Name="skills" Type="varchar(max)" />
+          <Property Name="educ_attain" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="dept_tbl">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dept_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dept_desc" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="event_reg_tbl">
+          <Key>
+            <PropertyRef Name="event_reg_id" />
+          </Key>
+          <Property Name="event_reg_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="event_id" Type="int" Nullable="false" />
+          <Property Name="regis_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="event_tbl">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="event_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="event_desc" Type="varchar" MaxLength="150" />
+          <Property Name="event_date" Type="date" Nullable="false" />
+          <Property Name="event_post_date" Type="date" Nullable="false" />
+          <Property Name="event_loc" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="job_post_tbl">
+          <Key>
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="job_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comp_id" Type="int" Nullable="false" />
+          <Property Name="job_title" Type="varchar(max)" Nullable="false" />
+          <Property Name="job_target" Type="varchar(max)" />
+          <Property Name="job_loc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="job_specs" Type="varchar(max)" Nullable="false" />
+          <Property Name="job_salary" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="job_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="job_post_date" Type="date" Nullable="false" />
+          <Property Name="job_deadline" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_tbl">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_type" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_cv_tbl_alum_tbl">
+          <End Role="alum_tbl" Type="Self.alum_tbl" Multiplicity="1" />
+          <End Role="cv_tbl" Type="Self.cv_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alum_tbl">
+              <PropertyRef Name="alum_num" />
+            </Principal>
+            <Dependent Role="cv_tbl">
+              <PropertyRef Name="alum_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_job_post_tbl_comp_tbl">
+          <End Role="comp_tbl" Type="Self.comp_tbl" Multiplicity="1" />
+          <End Role="job_post_tbl" Type="Self.job_post_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comp_tbl">
+              <PropertyRef Name="comp_id" />
+            </Principal>
+            <Dependent Role="job_post_tbl">
+              <PropertyRef Name="comp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AlumPortalDbModelStoreContainer">
+          <EntitySet Name="admin_acc_tbl" EntityType="Self.admin_acc_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="admin_tbl" EntityType="Self.admin_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alum_acc_tbl" EntityType="Self.alum_acc_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alum_tbl" EntityType="Self.alum_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comp_acc_tbl" EntityType="Self.comp_acc_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comp_tbl" EntityType="Self.comp_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cv_tbl" EntityType="Self.cv_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dept_tbl" EntityType="Self.dept_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="event_reg_tbl" EntityType="Self.event_reg_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="event_tbl" EntityType="Self.event_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="job_post_tbl" EntityType="Self.job_post_tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_tbl" EntityType="Self.user_tbl" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cv_tbl_alum_tbl" Association="Self.FK_cv_tbl_alum_tbl">
+            <End Role="alum_tbl" EntitySet="alum_tbl" />
+            <End Role="cv_tbl" EntitySet="cv_tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_job_post_tbl_comp_tbl" Association="Self.FK_job_post_tbl_comp_tbl">
+            <End Role="comp_tbl" EntitySet="comp_tbl" />
+            <End Role="job_post_tbl" EntitySet="job_post_tbl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlumPortalDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admin_acc_tbl">
+          <Key>
+            <PropertyRef Name="admin_acc_id" />
+          </Key>
+          <Property Name="admin_acc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="admin_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="admin_tbl">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_con" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alum_acc_tbl">
+          <Key>
+            <PropertyRef Name="alum_acc_id" />
+          </Key>
+          <Property Name="alum_acc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="alum_num" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comp_acc_tbl">
+          <Key>
+            <PropertyRef Name="comp_acc_id" />
+          </Key>
+          <Property Name="comp_acc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="comp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comp_tbl">
+          <Key>
+            <PropertyRef Name="comp_id" />
+          </Key>
+          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="comp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comp_con_num" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comp_con_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comp_address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comp_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="job_post_tbl" Relationship="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" FromRole="comp_tbl" ToRole="job_post_tbl" />
+        </EntityType>
+        <EntityType Name="event_reg_tbl">
+          <Key>
+            <PropertyRef Name="event_reg_id" />
+          </Key>
+          <Property Name="event_reg_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="event_id" Type="Int32" Nullable="false" />
+          <Property Name="regis_date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="event_tbl">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_desc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_loc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_tbl">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AlumPortalDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin_acc_tbl" EntityType="Self.admin_acc_tbl" />
+          <EntitySet Name="admin_tbl" EntityType="Self.admin_tbl" />
+          <EntitySet Name="alum_acc_tbl" EntityType="Self.alum_acc_tbl" />
+          <EntitySet Name="comp_acc_tbl" EntityType="Self.comp_acc_tbl" />
+          <EntitySet Name="comp_tbl" EntityType="Self.comp_tbl" />
+          <EntitySet Name="event_reg_tbl" EntityType="Self.event_reg_tbl" />
+          <EntitySet Name="event_tbl" EntityType="Self.event_tbl" />
+          <EntitySet Name="user_tbl" EntityType="Self.user_tbl" />
+          <EntitySet Name="cv_tbl" EntityType="AlumPortalDbModel.cv_tbl" />
+          <EntitySet Name="job_post_tbl" EntityType="AlumPortalDbModel.job_post_tbl" />
+          <AssociationSet Name="FK_job_post_tbl_comp_tbl" Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl">
+            <End Role="comp_tbl" EntitySet="comp_tbl" />
+            <End Role="job_post_tbl" EntitySet="job_post_tbl" />
+          </AssociationSet>
+          <EntitySet Name="alum_tbl" EntityType="AlumPortalDbModel.alum_tbl" />
+          <EntitySet Name="dept_tbl" EntityType="AlumPortalDbModel.dept_tbl" />
+          <AssociationSet Name="FK_cv_tbl_alum_tbl" Association="AlumPortalDbModel.FK_cv_tbl_alum_tbl">
+            <End Role="alum_tbl" EntitySet="alum_tbl" />
+            <End Role="cv_tbl" EntitySet="cv_tbl" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cv_tbl">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alum_num" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="experiences" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="educ_attain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="alum_tbl" Relationship="AlumPortalDbModel.FK_cv_tbl_alum_tbl" FromRole="cv_tbl" ToRole="alum_tbl" />
+        </EntityType>
+        <EntityType Name="job_post_tbl">
+          <Key>
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="job_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="job_title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="job_target" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="job_loc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_specs" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="job_salary" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="job_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="job_post_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="job_deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="comp_tbl" Relationship="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" FromRole="job_post_tbl" ToRole="comp_tbl" />
+        </EntityType>
+        <Association Name="FK_job_post_tbl_comp_tbl">
+          <End Type="AlumPortalDbModel.comp_tbl" Role="comp_tbl" Multiplicity="1" />
+          <End Type="AlumPortalDbModel.job_post_tbl" Role="job_post_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comp_tbl">
+              <PropertyRef Name="comp_id" />
+            </Principal>
+            <Dependent Role="job_post_tbl">
+              <PropertyRef Name="comp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="alum_tbl">
+          <Key>
+            <PropertyRef Name="alum_num" />
+          </Key>
+          <Property Name="alum_num" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dept_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="alum_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alum_sex" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="alum_bdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="yr_grad" Type="Int32" Nullable="false" />
+          <Property Name="alum_email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alum_con" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="alum_password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cv_tbl" Relationship="AlumPortalDbModel.FK_cv_tbl_alum_tbl" FromRole="alum_tbl" ToRole="cv_tbl" />
+        </EntityType>
+        <EntityType Name="dept_tbl">
+          <Key>
+            <PropertyRef Name="dept_id" />
+          </Key>
+          <Property Name="dept_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dept_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dept_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_cv_tbl_alum_tbl">
+          <End Type="AlumPortalDbModel.alum_tbl" Role="alum_tbl" Multiplicity="1" />
+          <End Type="AlumPortalDbModel.cv_tbl" Role="cv_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alum_tbl">
+              <PropertyRef Name="alum_num" />
+            </Principal>
+            <Dependent Role="cv_tbl">
+              <PropertyRef Name="alum_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AlumPortalDbModelStoreContainer" CdmEntityContainer="AlumPortalDbEntities">
+          <EntitySetMapping Name="admin_acc_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.admin_acc_tbl">
+              <MappingFragment StoreEntitySet="admin_acc_tbl">
+                <ScalarProperty Name="admin_acc_id" ColumnName="admin_acc_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admin_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.admin_tbl">
+              <MappingFragment StoreEntitySet="admin_tbl">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="admin_con" ColumnName="admin_con" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alum_acc_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.alum_acc_tbl">
+              <MappingFragment StoreEntitySet="alum_acc_tbl">
+                <ScalarProperty Name="alum_acc_id" ColumnName="alum_acc_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="alum_num" ColumnName="alum_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comp_acc_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.comp_acc_tbl">
+              <MappingFragment StoreEntitySet="comp_acc_tbl">
+                <ScalarProperty Name="comp_acc_id" ColumnName="comp_acc_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+                <ScalarProperty Name="comp_email" ColumnName="comp_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comp_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.comp_tbl">
+              <MappingFragment StoreEntitySet="comp_tbl">
+                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+                <ScalarProperty Name="comp_name" ColumnName="comp_name" />
+                <ScalarProperty Name="comp_con_num" ColumnName="comp_con_num" />
+                <ScalarProperty Name="comp_con_name" ColumnName="comp_con_name" />
+                <ScalarProperty Name="comp_email" ColumnName="comp_email" />
+                <ScalarProperty Name="comp_address" ColumnName="comp_address" />
+                <ScalarProperty Name="comp_password" ColumnName="comp_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_reg_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.event_reg_tbl">
+              <MappingFragment StoreEntitySet="event_reg_tbl">
+                <ScalarProperty Name="event_reg_id" ColumnName="event_reg_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="regis_date" ColumnName="regis_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.event_tbl">
+              <MappingFragment StoreEntitySet="event_tbl">
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_post_date" ColumnName="event_post_date" />
+                <ScalarProperty Name="event_loc" ColumnName="event_loc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.user_tbl">
+              <MappingFragment StoreEntitySet="user_tbl">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cv_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.cv_tbl">
+              <MappingFragment StoreEntitySet="cv_tbl">
+                <ScalarProperty Name="educ_attain" ColumnName="educ_attain" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="experiences" ColumnName="experiences" />
+                <ScalarProperty Name="alum_num" ColumnName="alum_num" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="job_post_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.job_post_tbl">
+              <MappingFragment StoreEntitySet="job_post_tbl">
+                <ScalarProperty Name="job_deadline" ColumnName="job_deadline" />
+                <ScalarProperty Name="job_post_date" ColumnName="job_post_date" />
+                <ScalarProperty Name="job_type" ColumnName="job_type" />
+                <ScalarProperty Name="job_salary" ColumnName="job_salary" />
+                <ScalarProperty Name="job_specs" ColumnName="job_specs" />
+                <ScalarProperty Name="job_loc" ColumnName="job_loc" />
+                <ScalarProperty Name="job_target" ColumnName="job_target" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alum_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.alum_tbl">
+              <MappingFragment StoreEntitySet="alum_tbl">
+                <ScalarProperty Name="alum_password" ColumnName="alum_password" />
+                <ScalarProperty Name="alum_con" ColumnName="alum_con" />
+                <ScalarProperty Name="alum_email" ColumnName="alum_email" />
+                <ScalarProperty Name="yr_grad" ColumnName="yr_grad" />
+                <ScalarProperty Name="alum_bdate" ColumnName="alum_bdate" />
+                <ScalarProperty Name="alum_sex" ColumnName="alum_sex" />
+                <ScalarProperty Name="alum_name" ColumnName="alum_name" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="alum_num" ColumnName="alum_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dept_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.dept_tbl">
+              <MappingFragment StoreEntitySet="dept_tbl">
+                <ScalarProperty Name="dept_desc" ColumnName="dept_desc" />
+                <ScalarProperty Name="dept_name" ColumnName="dept_name" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
