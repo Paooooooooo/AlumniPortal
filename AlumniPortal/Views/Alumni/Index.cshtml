@@ -1,4 +1,4 @@
-﻿@model List<AlumniPortal.Models.job_post_tbl>
+﻿@model IEnumerable<AlumniPortal.Models.JobPostIndexModel>
 
 @{
     ViewBag.Title = "Index";
@@ -15,56 +15,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         .navbar-custom {
-            background-color: #a52a2a; /* Pale maroon color */
+            background-color: #a52a2a;
             width: 100%;
-            z-index: 1000; /* Ensure navbar is on top */
-            min-height: 4.5rem; /* Set minimum height for the navbar */
-            padding: 0 1rem; /* Adjust padding inside the navbar */
-
+            z-index: 1000;
+            min-height: 4.5rem;
+            padding: 0 1rem;
         }
 
         .navbar-brand, .nav-link {
             color: white !important;
-            font-family: 'Cinzel', serif; /* Apply Cinzel font to navbar elements */
-            font-weight: 400; /* Apply Cinzel Regular (400) */
-            font-size: 20px; /* Increase font size for navbar text */
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 20px;
         }
 
         .navbar-brand {
             display: flex;
-            align-items: center; /* Center vertically */
+            align-items: center;
         }
 
             .navbar-brand img {
-                height: 50px; /* Set image height */
-                margin-right: 10px; /* Adjust margin between image and text */
+                height: 50px;
+                margin-right: 10px;
             }
 
         .nav-link.btn-primary {
             font-weight: bold;
-            background-color: #e6be8a; /* Change button background color to #e6be8a */
-            border-color: #e6be8a; /* Match border color with background color */
-            color: black !important; /* Set initial text color to black */
+            background-color: #e6be8a;
+            border-color: #e6be8a;
+            color: black !important;
         }
 
             .nav-link.btn-primary:hover {
                 font-weight: bold;
-                background-color: #cc9f54; /* Slightly darker hover background color */
-                border-color: #cc9f54; /* Match hover border color with hover background color */
-                color: white !important; /* Change text color to white on hover */
+                background-color: #cc9f54;
+                border-color: #cc9f54;
+                color: white !important;
             }
 
         .navbar-nav .nav-item .nav-link {
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
             .navbar-nav .nav-item .nav-link:hover {
-                background-color: #cc9f54; /* Hover background color */
-                color: white !important; /* Text color on hover */
+                background-color: #cc9f54;
+                color: white !important;
             }
 
         .nav-item + .nav-item {
-            margin-left: 10px; /* Adjust the space between each nav item */
+            margin-left: 10px;
         }
 
         .intro-container {
@@ -88,23 +87,42 @@
 
         .job-card {
             margin-bottom: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Initial shadow style */
         }
 
+            .job-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+                text-decoration: none;
+            }
+
         .content-container {
-            margin: 20px; /* Add margin to the content container */
+            margin: 20px;
         }
 
             .content-container h2 {
-                margin-top:-20px; /* Example: move the h2 "Job Board" 10px upward */
+                margin-top: 6rem;
                 margin-bottom: 20px;
             }
 
+        /* New CSS rule to change text color inside the card on hover */
+        .job-card:hover .card-body {
+            color: maroon !important;
+        }
+
+        /* Ensure the job-card link doesn't change color on hover */
+        .job-card:hover {
+            color: inherit;
+        }
     </style>
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -132,7 +150,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Alumni/Profile">Profile</a>
+                            <a class="dropdown-item" href="/Alumni/AlumniProfile">Profile</a>
                             <a class="dropdown-item" href="/Alumni/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Alumni/Logout">Logout</a>
@@ -144,21 +162,18 @@
     </header>
     <div class="content-container">
         <h2>Job Board</h2>
-        <div class="card-columns">
-            @foreach (var job_post_tbl in Model)
+        <div class="row">
+            @foreach (var job in Model)
             {
-                <div class="card job-card">
-                    <div class="card-body">
-                        <h5 class="card-title">@job_post_tbl.job_title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@job_post_tbl.job_loc</h6>
-                        <p class="card-text">@job_post_tbl.job_specs</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Salary: @job_post_tbl.job_salary</li>
-                            <li class="list-group-item">Type: @job_post_tbl.job_type</li>
-                            <li class="list-group-item">Post Date: @job_post_tbl.job_post_date</li>
-                            <li class="list-group-item">Deadline: @job_post_tbl.job_deadline</li>
-                        </ul>
-                    </div>
+                <div class="col-md-4 mb-4">
+                    <!-- Adjust col size based on desired responsiveness -->
+                    <a href="@Url.Action("JobDetails", "Alumni", new { id = job.JobId })" class="card job-card">
+                        <div class="card-body">
+                            <h5 class="card-title">@job.JobTitle</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@job.CompanyName</h6>
+                            <p class="card-text">@job.JobLocation</p>
+                        </div>
+                    </a>
                 </div>
             }
         </div>

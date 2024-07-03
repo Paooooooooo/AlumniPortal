@@ -8,6 +8,9 @@ namespace AlumniPortal.Models
 {
     public class JobPostIndexModel
     {
-        public DbSet<job_post_tbl> JobPosts { get; set; }
+        public int JobId { get; set; }
+        public string JobTitle { get; set; }
+        public string JobLocation { get; set; }
+        public string CompanyName { get; set; }
     }
 }

@@ -31,11 +31,11 @@ namespace AlumniPortal.Models
         public virtual DbSet<comp_acc_tbl> comp_acc_tbl { get; set; }
         public virtual DbSet<comp_tbl> comp_tbl { get; set; }
         public virtual DbSet<event_reg_tbl> event_reg_tbl { get; set; }
-        public virtual DbSet<event_tbl> event_tbl { get; set; }
         public virtual DbSet<user_tbl> user_tbl { get; set; }
         public virtual DbSet<cv_tbl> cv_tbl { get; set; }
         public virtual DbSet<job_post_tbl> job_post_tbl { get; set; }
         public virtual DbSet<alum_tbl> alum_tbl { get; set; }
         public virtual DbSet<dept_tbl> dept_tbl { get; set; }
+        public virtual DbSet<event_tbl> event_tbl { get; set; }
     }
 }

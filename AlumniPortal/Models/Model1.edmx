@@ -100,7 +100,7 @@
           <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="admin_id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="event_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="event_desc" Type="varchar" MaxLength="150" />
+          <Property Name="event_desc" Type="varchar(max)" />
           <Property Name="event_date" Type="date" Nullable="false" />
           <Property Name="event_post_date" Type="date" Nullable="false" />
           <Property Name="event_loc" Type="varchar" MaxLength="50" Nullable="false" />
@@ -235,18 +235,6 @@
           <Property Name="event_id" Type="Int32" Nullable="false" />
           <Property Name="regis_date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EntityType Name="event_tbl">
-          <Key>
-            <PropertyRef Name="event_id" />
-          </Key>
-          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="admin_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="event_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="event_desc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="event_loc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="user_tbl">
           <Key>
             <PropertyRef Name="user_id" />
@@ -262,7 +250,6 @@
           <EntitySet Name="comp_acc_tbl" EntityType="Self.comp_acc_tbl" />
           <EntitySet Name="comp_tbl" EntityType="Self.comp_tbl" />
           <EntitySet Name="event_reg_tbl" EntityType="Self.event_reg_tbl" />
-          <EntitySet Name="event_tbl" EntityType="Self.event_tbl" />
           <EntitySet Name="user_tbl" EntityType="Self.user_tbl" />
           <EntitySet Name="cv_tbl" EntityType="AlumPortalDbModel.cv_tbl" />
           <EntitySet Name="job_post_tbl" EntityType="AlumPortalDbModel.job_post_tbl" />
@@ -276,6 +263,7 @@
             <End Role="alum_tbl" EntitySet="alum_tbl" />
             <End Role="cv_tbl" EntitySet="cv_tbl" />
           </AssociationSet>
+          <EntitySet Name="event_tbl" EntityType="AlumPortalDbModel.event_tbl" />
         </EntityContainer>
         <EntityType Name="cv_tbl">
           <Key>
@@ -351,6 +339,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="event_tbl">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="event_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="event_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_loc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -419,19 +419,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="event_tbl">
-            <EntityTypeMapping TypeName="AlumPortalDbModel.event_tbl">
-              <MappingFragment StoreEntitySet="event_tbl">
-                <ScalarProperty Name="event_id" ColumnName="event_id" />
-                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
-                <ScalarProperty Name="event_name" ColumnName="event_name" />
-                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
-                <ScalarProperty Name="event_date" ColumnName="event_date" />
-                <ScalarProperty Name="event_post_date" ColumnName="event_post_date" />
-                <ScalarProperty Name="event_loc" ColumnName="event_loc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="user_tbl">
             <EntityTypeMapping TypeName="AlumPortalDbModel.user_tbl">
               <MappingFragment StoreEntitySet="user_tbl">
@@ -489,6 +476,19 @@
                 <ScalarProperty Name="dept_desc" ColumnName="dept_desc" />
                 <ScalarProperty Name="dept_name" ColumnName="dept_name" />
                 <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.event_tbl">
+              <MappingFragment StoreEntitySet="event_tbl">
+                <ScalarProperty Name="event_loc" ColumnName="event_loc" />
+                <ScalarProperty Name="event_post_date" ColumnName="event_post_date" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

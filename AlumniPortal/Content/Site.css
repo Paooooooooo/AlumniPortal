@@ -1,39 +1,111 @@
-﻿body {
-    padding-top: 6rem; /* Adjust top padding to accommodate the fixed navbar height */
-    font-family: 'Noto Sans', sans-serif; /* Apply Noto Sans font to the body */
-    margin: 0; /* Reset default margin */
-    width: 100%; /* Ensure full width */
-    overflow-x: hidden; /* Prevent horizontal scrollbars */
-    text-align: left;
-    border: 15px;
+﻿/* Ensure the html and body take up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Make the wrapper take up the full available space, minus the footer */
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make sure the body-content can grow and take up available space */
 .container.body-content {
-    padding: 0px; /* Example: Adjust padding as needed */
-    margin: 0px; /* Example: Center horizontally */
+    flex: 1;
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    max-width:100%;
+}
+
+/* Footer styling */
+#contact-us {
+    background-color: #F0F0F0;
+    color: #808080;
+    padding: 10px;
+    text-align: left;
+    font-family: 'Noto Sans', sans-serif;
     max-width: 100%;
-    padding-bottom: 3rem; /* Adjust bottom padding to move footer content up */
+    margin-top: 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
 }
 
-input,
-select,
-textarea {
-    max-width: 280px;
+.contact-content {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(120px, 1fr) 1fr;
 }
 
-footer {
-    display: flex; /* Use flexbox for footer layout */
-    justify-content: flex-start; /* Align items to the start (left) of the footer */
-    align-items: flex-start; /* Align items to the start (top) of the footer */
-    background-color: #f0f0f0; /* Light gray background color for the footer */
-    padding: 10px 0 0 7px; /* Adjust padding as needed */
-    padding-bottom: 2rem; /* Adjust bottom padding as needed */
-    max-width: 100% !important; /* Full width */
-    position: relative; /* Change to relative positioning */
-    bottom: 0; /* Stick to the bottom of its containing element */
+#contact-us h2 {
+    grid-column: span 2;
+    margin: 10px 0 2px;
+    font-size: 20px;
+    color: #800000;
+}
+
+#contact-us p {
+    grid-column: span 2;
+    margin: 2px 0 10px;
+    font-size: 15px;
+}
+
+.contact-info {
+    grid-column: 1;
+}
+
+    .contact-info a {
+        color: #808080;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+        font-size: 14px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+        .contact-info a:hover b {
+            text-decoration: underline;
+            color: #800000;
+        }
+
+.follow-us {
+    grid-column: 2;
+    margin-top: 0px;
+}
+
+#contact-us h3 {
+    color: #800000;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.follow-us h3 {
+    color: #800000;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.follow-us img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.follow-us a[href*="https://twitter.com/ThePUPOfficial?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"] img {
+    width: 77px;
+    height: auto;
+    margin-left: -14px;
 }
 
 .footer-content {
-    margin: 0; /* Remove default margin */
-    text-align: left; /* Align text to the left within footer */
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Noto Sans', sans-serif;
+    color: #808080;
 }

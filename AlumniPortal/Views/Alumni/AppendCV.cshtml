@@ -1,13 +1,13 @@
-﻿@model List<AlumniPortal.Models.event_tbl>
-@using AlumniPortal.Helpers
+﻿@model AlumniPortal.Models.AppendCVViewModel
+
 @{
-    ViewBag.Title = "Events";
+    ViewBag.Title = "Append CV";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home - Alumni Portal</title>
+    <title>Edit CV - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -62,35 +62,19 @@
                 color: white !important;
             }
 
-        .nav-item + .nav-item {
-            margin-left: 10px;
-        }
-
         .container {
-            margin-top:6rem;
-            margin-left:0;
-            margin-right:0;
-        }
-
-        h2 {
-            margin-bottom: 30px;
-        }
-
-        .card {
-            margin-bottom: 20px;
+            margin-top: 6rem;
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -112,7 +96,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Alumni/AlumniProfile">Profile</a>
+                            <a class="dropdown-item" href="/Alumni/Profile">Profile</a>
                             <a class="dropdown-item" href="/Alumni/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Alumni/Logout">Logout</a>
@@ -123,23 +107,65 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Events</h2>
-        <div class="row">
-            @foreach (var event_tbl in Model)
-            {
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => event_tbl.event_name)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => event_tbl.event_date)</h6>
-                            <p class="card-text">@Html.Raw(Html.ConvertUrlsToLinks(event_tbl.event_desc))</p>
-                            <p class="card-text"><small class="text-muted">Posted on: @Html.DisplayFor(modelItem => event_tbl.event_post_date)</small></p>
-                            <p class="card-text"><small class="text-muted">Location: @Html.DisplayFor(modelItem => event_tbl.event_loc)</small></p>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+        <h2>Edit CV</h2>
+
+        @using (Html.BeginForm("AppendCV", "Alumni", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <label>Experiences:</label>
+            <button type="button" id="addExperience">Add Experience</button>
+            <div id="experienceList">
+                @for (int i = 0; i < Model.Experiences.Count; i++)
+                {
+                    <input type="text" name="Experiences[@i]" value="@Model.Experiences[i]" /><br />
+                }
+            </div>
+
+            <label>Skills:</label>
+            <button type="button" id="addSkill">Add Skill</button>
+            <div id="skillList">
+                @for (int i = 0; i < Model.Skills.Count; i++)
+                {
+                    <input type="text" name="Skills[@i]" value="@Model.Skills[i]" /><br />
+                }
+            </div>
+
+            <label>Educational Attainments:</label>
+            <button type="button" id="addEducation">Add Education</button>
+            <div id="educationList">
+                @for (int i = 0; i < Model.EducAttainments.Count; i++)
+                {
+                    <input type="text" name="EducAttainments[@i]" value="@Model.EducAttainments[i]" /><br />
+                }
+            </div>
+
+            <input type="submit" value="Save" class="btn btn-primary mt-3" />
+        }
+
+        @section Scripts {
+            <script>
+                $(function () {
+                    var experienceIndex = @Model.Experiences.Count;
+                    $('#addExperience').click(function () {
+                        $('<input type="text" name="Experiences[' + experienceIndex + ']" />').appendTo('#experienceList');
+                        experienceIndex++;
+                    });
+
+                    var skillIndex = @Model.Skills.Count;
+                    $('#addSkill').click(function () {
+                        $('<input type="text" name="Skills[' + skillIndex + ']" />').appendTo('#skillList');
+                        skillIndex++;
+                    });
+
+                    var educationIndex = @Model.EducAttainments.Count;
+                    $('#addEducation').click(function () {
+                        $('<input type="text" name="EducAttainments[' + educationIndex + ']" />').appendTo('#educationList');
+                        educationIndex++;
+                    });
+                });
+            </script>
+        }
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -8,10 +8,10 @@ namespace AlumniPortal.Models
     public class EditCVViewModel
     {
         public int cv_id { get; set; }
-        public string alum_num { get; set; }
-        public List<string> Experiences { get; set; }
-        public List<string> Skills { get; set; }
-        public List<string> EducAttainments { get; set; }
+        public string Experiences { get; set; }
+        public string Skills { get; set; }
+        public string EducAttainments { get; set; }
     }
+
 
 }

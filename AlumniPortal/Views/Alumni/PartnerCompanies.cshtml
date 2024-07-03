@@ -7,92 +7,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home - Alumni Portal</title>
+    <title>Partner Companies - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         .navbar-custom {
-            background-color: #a52a2a; /* Pale maroon color */
+            background-color: #a52a2a;
             width: 100%;
-            z-index: 1000; /* Ensure navbar is on top */
-            min-height: 4.5rem; /* Set minimum height for the navbar */
-            padding: 0 1rem; /* Adjust padding inside the navbar */
+            z-index: 1000;
+            min-height: 4.5rem;
+            padding: 0 1rem;
         }
 
         .navbar-brand, .nav-link {
             color: white !important;
-            font-family: 'Cinzel', serif; /* Apply Cinzel font to navbar elements */
-            font-weight: 400; /* Apply Cinzel Regular (400) */
-            font-size: 20px; /* Increase font size for navbar text */
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 20px;
         }
 
         .navbar-brand {
             display: flex;
-            align-items: center; /* Center vertically */
+            align-items: center;
         }
 
             .navbar-brand img {
-                height: 50px; /* Set image height */
-                margin-right: 10px; /* Adjust margin between image and text */
+                height: 50px;
+                margin-right: 10px;
             }
 
         .nav-link.btn-primary {
             font-weight: bold;
-            background-color: #e6be8a; /* Change button background color to #e6be8a */
-            border-color: #e6be8a; /* Match border color with background color */
-            color: black !important; /* Set initial text color to black */
+            background-color: #e6be8a;
+            border-color: #e6be8a;
+            color: black !important;
         }
 
             .nav-link.btn-primary:hover {
                 font-weight: bold;
-                background-color: #cc9f54; /* Slightly darker hover background color */
-                border-color: #cc9f54; /* Match hover border color with hover background color */
-                color: white !important; /* Change text color to white on hover */
+                background-color: #cc9f54;
+                border-color: #cc9f54;
+                color: white !important;
             }
 
         .navbar-nav .nav-item .nav-link {
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
             .navbar-nav .nav-item .nav-link:hover {
-                background-color: #cc9f54; /* Hover background color */
-                color: white !important; /* Text color on hover */
+                background-color: #cc9f54;
+                color: white !important;
             }
+
+        .nav-item + .nav-item {
+            margin-left: 10px;
+        }
 
         .intro-container {
             font-family: "Noto Sans", serif;
             max-width: 100%;
-            margin: 20px;
+            margin-top:6rem;
         }
 
-        .user-type-option {
-            cursor: pointer;
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+        .card {
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Initial shadow style */
         }
 
-        h2 {
-            margin-left: 20px;
-            margin-bottom: 35px;
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+                text-decoration: none;
+            }
+        h2{
+            font-weight:bold;
+            margin-bottom:20px;
+        }
+        .card-body {
+            text-align: left;
+            padding: 20px;
         }
 
-        /* Align table to the left */
-        .table-container {
-            margin-left: 20px; /* Adjust margin for left alignment */
-            width: auto; /* Allow table to expand based on content */
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #666;
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -120,7 +135,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Alumni/Profile">Profile</a>
+                            <a class="dropdown-item" href="/Alumni/AlumniProfile">Profile</a>
                             <a class="dropdown-item" href="/Alumni/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Alumni/Logout">Logout</a>
@@ -130,31 +145,28 @@
             </div>
         </nav>
     </header>
-    <h2>Partner Companies</h2>
-    <div class="container table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Contact Number</th>
-                    <th>Contact Person</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var comp_tbl in Model)
-                {
-                    <tr>
-                        <td>@comp_tbl.comp_name</td>
-                        <td>@comp_tbl.comp_con_num</td>
-                        <td>@comp_tbl.comp_con_name</td>
-                        <td>@comp_tbl.comp_email</td>
-                        <td>@comp_tbl.comp_address</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="container intro-container">
+        <h2>Partner Companies</h2>
+        <div class="row">
+            @foreach (var company in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <a href="@Url.Action("CompanyJobPosts", "Alumni", new { compId = company.comp_id })" class="card-link">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@company.comp_name</h5>
+                                <p class="card-text">
+                                     @company.comp_con_name<br />
+                                     @company.comp_con_num<br />
+                                     @company.comp_email<br />
+                                     @company.comp_address
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

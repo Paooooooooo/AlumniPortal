@@ -52,63 +52,81 @@
                 color: white !important; /* Change text color to white on hover */
             }
 
-        .h-container {
-            font-family: "Noto Sans", serif;
-            max-width: 100%;
-            margin-left:20px;
+        /* Style for the buttons */
+        .bg {
+            background-image: url('../Content/Images/pup_pylon.png');
+            height: 75vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .user-type-option {
-            cursor: pointer;
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+        .login-container {
+            background: rgba(255, 255, 255, 255);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-top: 5rem; /* Add margin to position the login container below the navbar */
         }
 
-            .user-type-option:hover {
-                background-color: #f0f0f0;
+            .login-container h1 {
+                font-family: 'Cinzel', serif;
+                text-align: center;
+                margin-bottom: 20px;
             }
 
-        /* Style for the buttons */
-        .btn-dynamic {
-            font-weight: bold;
-            transition: all 0.3s ease;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
         .btn-login {
-            background-color: #e6be8a; /* Button background color */
-            border-color: #e6be8a; /* Button border color */
-            color: black;
+            background-color: #a52a2a;
+            border-color: #a52a2a;
+            color: white;
+            width: 100%;
+            
         }
 
             .btn-login:hover {
-                background-color: #cc9f54; /* Hover background color */
-                border-color: #cc9f54; /* Hover border color */
-                color: white; /* Hover text color */
+                background-color: #800000;
+                border-color: #800000;
             }
 
         .btn-home {
-            background-color: #f8f9fa; /* Button background color */
-            border-color: #ced4da; /* Button border color */
+            background-color: #e6be8a;
+            border-color: #e6be8a;
             color: black;
+            width: 100%;
+            margin-top: 5px;
         }
 
             .btn-home:hover {
-                background-color: #e2e6ea; /* Hover background color */
-                border-color: #dae0e5; /* Hover border color */
-                color: black; /* Hover text color */
+                background-color: #d9aa7a;
+                border-color: #d9aa7a;
+                color:black;
             }
 
         .form-group {
             margin-bottom: 1.5rem; /* Adjust margin to create space between form fields */
-            margin-left:20px;
+            margin-left: 0px;
+
         }
 
         .button-container {
             margin-top: 2rem; /* Adjust margin to create space above buttons */
-            margin-left: 20px;
+            margin-left: 0px;
+        }
+
+        .container {
+            margin-top: 100px;
+            font-family: 'Noto Sans', serif;
+            max-width: 100%;
+            margin-left: 0px;
         }
     </style>
 </head>
@@ -118,7 +136,7 @@
             <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
-                PUP Alumni Portal
+                Polytechnic University of the Philippines
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -126,29 +144,30 @@
             </button>
         </nav>
     </header>
-    <div class="h-container">
-        <h1><b>Alumni Login</b></h1>
+    <div class="bg">
+        <div class="login-container">
+            <h1><b>Alumni Login</b></h1>
+            @using (Html.BeginForm("LoginAlumni", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Alumni Number", new { @for = "alum_num" })
+                    @Html.TextBoxFor(m => m.alum_num, new { @class = "form-control", style = "width: 100%;", id = "alum_num" })
+                    @Html.ValidationMessageFor(m => m.alum_num)
+                </div>
+                <div class="form-group">
+                    @Html.Label("Password", new { @for = "alum_password" })
+                    @Html.PasswordFor(m => m.alum_password, new { @class = "form-control", style = "width: 100%;", id = "alum_password" })
+                    @Html.ValidationMessageFor(m => m.alum_password)
+                </div>
+                <div class="form-group button-container">
+                    <input type="submit" value="Login" class="btn btn-primary btn-login mr-2" />
+                    <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-secondary btn-home">Back</button>
+                </div>
+            }
+        </div>
     </div>
-
-    @using (Html.BeginForm("LoginAlumni", "Account", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.alum_num)
-            @Html.TextBoxFor(m => m.alum_num, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.alum_num)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.alum_password)
-            @Html.PasswordFor(m => m.alum_password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.alum_password)
-        </div>
-        <div class="form-group button-container">
-            <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-secondary btn-home">Back</button>
-            <input type="submit" value="Login" class="btn btn-primary btn-login mr-2" />
-        </div>
-    }
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

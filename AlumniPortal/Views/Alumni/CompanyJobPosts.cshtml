@@ -1,17 +1,16 @@
-﻿@model List<AlumniPortal.Models.event_tbl>
-@using AlumniPortal.Helpers
+﻿@model List<AlumniPortal.Models.job_post_tbl>
+
 @{
-    ViewBag.Title = "Events";
+    ViewBag.Title = "Partner Companies";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home - Alumni Portal</title>
+    <title>Partner Companies - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         .navbar-custom {
@@ -67,24 +66,63 @@
         }
 
         .container {
-            margin-top:6rem;
-            margin-left:0;
-            margin-right:0;
-        }
-
-        h2 {
-            margin-bottom: 30px;
+            font-family: "Noto Sans", serif;
+            max-width: 100%;
+            margin-top: 6rem;
         }
 
         .card {
             margin-bottom: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Initial shadow style */
         }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+                text-decoration: none;
+            }
+
+        h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        .btn-primary {
+            background-color: #e6be8a;
+            border-color: #e6be8a;
+            color: black !important;
+            font-weight: bold;
+        }
+
+            .btn-primary:hover {
+                background-color: #a52a2a;
+                border-color: #a52a2a;
+                color: white !important;
+            }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -123,18 +161,16 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Events</h2>
+        <h2>Job Posts</h2>
         <div class="row">
-            @foreach (var event_tbl in Model)
+            @foreach (var jobPost in Model)
             {
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => event_tbl.event_name)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => event_tbl.event_date)</h6>
-                            <p class="card-text">@Html.Raw(Html.ConvertUrlsToLinks(event_tbl.event_desc))</p>
-                            <p class="card-text"><small class="text-muted">Posted on: @Html.DisplayFor(modelItem => event_tbl.event_post_date)</small></p>
-                            <p class="card-text"><small class="text-muted">Location: @Html.DisplayFor(modelItem => event_tbl.event_loc)</small></p>
+                            <h5 class="card-title">@jobPost.job_title</h5>
+                            <p class="card-text">@jobPost.job_specs</p>
+                            <a href="@Url.Action("JobDetails", new { id = jobPost.job_id })" class="btn btn-primary">View Job Details</a>
                         </div>
                     </div>
                 </div>

@@ -64,6 +64,8 @@
             font-family: "Noto Sans", serif;
             max-width: 100%;
             margin: 20px;
+            margin-top: 100px;
+            margin-bottom:100px;
         }
 
         .user-type-option {
@@ -78,6 +80,68 @@
             .user-type-option:hover {
                 background-color: #f0f0f0;
             }
+
+        h1 {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 550px;
+            position: relative;
+        }
+
+            h1:before,
+            h1:after {
+                background-color: #800000;
+                display: block;
+                height: 2px;
+                content: "";
+                position: absolute;
+                width: 150px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: -1;
+            }
+
+            h1:before {
+                left: -75px;
+            }
+
+            h1:after {
+                right: -75px;
+            }
+
+        .intro-container header {
+            text-align: center;
+            padding: 1px; /* Adjust the padding to move the header upwards */
+            margin-top: -150px; /* Adjust the margin-top to move the header upwards */
+            font-size: 20px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        #intro {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            border: 5px solid #000; /* Add border properties */
+            padding: 20px; /* Add padding for spacing between text and border */
+            border-color: #e6be8a;
+            border-radius: 10px;
+        }
+        .under-nav {
+            position: relative;
+            bottom: 80px;
+            background-image: url("../Content/Images/underheader.jpg");
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            height: 80vh;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
     </style>
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <script>
@@ -104,7 +168,7 @@
             <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
-                PUP Alumni Portal
+                Polytechnic University of the Philippines
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -119,18 +183,28 @@
                         <a class="nav-link" href="/Home/About">About Us</a>
                     </li>
                     <li class="nav-item ml-3">
-                        <a class="nav-link" href="/Home/Contact">Contact Us</a>
-                    </li>
-                    <li class="nav-item ml-3">
                         <a class="nav-link btn btn-primary text-white" href="#" data-toggle="modal" data-target="#userTypeModal">Log in</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="under-nav"></div>
     </header>
     <div class="intro-container">
-        <h1><b>Welcome to the Alumni Portal</b></h1>
-        <p>This is the home page</p>
+        <header>
+            <h1><span><b>PUP Alumni Portal</b></span></h1>
+        </header>
+        <main>
+            <section id=intro class="reveal">
+                <p>
+                    Welcome to the Polytechnic University of the Philippines (PUP) Alumni Portal, your gateway to staying connected with our vibrant community of graduates.
+                    Our portal is designed to foster continuous engagement, offering a platform for alumni to reconnect, share experiences, and access valuable resources.
+                    Whether you're seeking to expand your professional network, explore career opportunities, or stay updated with university events and news, the PUP Alumni Portal
+                    is your comprehensive hub for maintaining a lifelong relationship with your alma mater. Join us in celebrating the legacy and achievements of our alumni as
+                    we continue to build a stronger, more connected PUP community.
+                </p>
+            </section>
+        </main>
     </div>
 
     <!-- User Type Modal -->

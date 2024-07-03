@@ -1,12 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "About";
+﻿@{
+    ViewBag.Title = "Index";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>About Us - Alumni Portal</title>
+    <title>Home - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -65,6 +64,7 @@
             font-family: "Noto Sans", serif;
             max-width: 100%;
             margin: 20px;
+            margin-top: 100px;
         }
 
         .user-type-option {
@@ -79,8 +79,117 @@
             .user-type-option:hover {
                 background-color: #f0f0f0;
             }
+
+        h1 {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 550px;
+            position: relative;
+        }
+
+            h1:before,
+            h1:after {
+                background-color: #e6be8a;
+                display: block;
+                height: 2px;
+                content: "";
+                position: absolute;
+                width: 150px;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: -1;
+            }
+
+            h1:before {
+                left: -1px;
+            }
+
+            h1:after {
+                right: -1px;
+            }
+
+        .intro-container header {
+            text-align: center;
+            padding: 1px; /* Adjust the padding to move the header upwards */
+            margin-top: -150px; /* Adjust the margin-top to move the header upwards */
+            font-size: 20px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        #intro {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            border: 5px solid #000; /* Add border properties */
+            padding: 20px; /* Add padding for spacing between text and border */
+            border-color: #800000;
+            border-radius: 10px;
+        }
+
+        .under-nav {
+            position: relative;
+            bottom: 80px;
+            background-image: url("../Content/Images/underheader.jpg");
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            height: 80vh;
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .as-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #a52a2a;
+        }
+        .item {
+            display: flex;
+            width: 80%;
+            background-color: #e6be8a;
+            border: 2px solid #e6be8a;
+            margin: 20px;
+        }
+
+            .item img {
+                width: 200px;
+                height: auto;
+            }
+            .name{
+                margin:10px;
+            }
+        .description {
+            background-color: #e6be8a;
+            padding: 5px;
+            flex: 1;
+        }
     </style>
+
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script>
+        function selectUserType(userType) {
+            switch (userType) {
+                case 'Alumni':
+                    window.location.href = '/Account/AlumniLogin'; // Redirect to Alumni login view
+                    break;
+                case 'Company':
+                    window.location.href = '/Account/CompanyLogin'; // Redirect to Company login view
+                    break;
+                case 'Admin':
+                    window.location.href = '/Account/AdminLogin'; // Redirect to Admin login view
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -88,9 +197,10 @@
             <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
-                PUP Alumni Portal
+                Polytechnic University of the Philippines
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -102,26 +212,94 @@
                         <a class="nav-link" href="/Home/About">About Us</a>
                     </li>
                     <li class="nav-item ml-3">
-                        <a class="nav-link" href="/Home/Contact">Contact Us</a>
-                    </li>
-                    <li class="nav-item ml-3">
-                        <a class="nav-link btn btn-primary text-white" href="/Account/SelectUserType">Log in</a>
+                        <a class="nav-link btn btn-primary text-white" href="#" data-toggle="modal" data-target="#userTypeModal">Log in</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="under-nav"></div>
     </header>
     <div class="intro-container">
-        <h1><b>About Us</b></h1>
-        <p>This is the about Page.</p>
+        <header>
+            <h1><span><b>About Us</b></span></h1>
+        </header>
     </div>
+    <main>
+        <div class="as-container">
+            <div class="item">
+                <img src="path/to/image1.jpg" alt="Image 1">
+                <div class="description">
+                    <b>Paolo Gabriel Belen</b><br><br>
+                    Paolo is a motivated Information Technology student at the Polytechnic University of the Philippines (PUP), distinguished for his strong analytical 
+                    mindset and passion for innovation in software engineering. With a solid foundation in programming languages and system architecture, Daniel consistently
+                    delivers exceptional results in both academic projects and extracurricular activities. He actively participates in coding competitions and hackathons, 
+                    where he collaborates with peers to develop cutting-edge solutions to real-world challenges. Outside of academics, Daniel is involved in mentoring junior 
+                    students, sharing his expertise and fostering a supportive learning environment within the university community. His commitment to excellence and his drive 
+                    for continuous improvement position him as a future leader in the IT industry.
+                </div>
+            </div>
+            <div class="item">
+                <img src="~/Content/Images/drei.jpg" alt="Image 2">
+                <div class="description">
+                    <b>Alexandrei Dalisay</b><br><br>
+                    Alexandrei is a driven Information Technology student at the Polytechnic University of the Philippines (PUP), recognized for her exceptional problem-solving 
+                    abilities and creative approach to software development. Passionate about technology and innovation, Maria consistently excels in her academic endeavors, 
+                    demonstrating a strong grasp of programming languages and system design. She actively participates in the university’s tech events and hackathons, where she 
+                    collaborates with fellow students to develop innovative solutions. Outside her academic pursuits, Maria is committed to empowering other young women in tech 
+                    through mentorship and community involvement. Her dedication and forward-thinking mindset make her a standout student with a bright future in the IT industry.
+                </div>
+            </div>
+            <div class="item">
+                <img src="path/to/image3.jpg" alt="Image 3">
+                <div class="description">
+                    <b>Justine Redinz Mendoza</b><br><br>
+                    Redinz is a dynamic Information Technology student at the Polytechnic University of the Philippines (PUP), known for his adept problem-solving skills 
+                    and passion for software development. With a knack for mastering new programming languages and frameworks, Michael thrives in challenging coding projects and 
+                    excels in his academic studies. He actively engages in the university's IT club, where he contributes to group projects and workshops aimed at enhancing 
+                    technical skills among peers. Beyond his technical prowess, Michael is an avid advocate for integrating technology into social causes, participating in 
+                    initiatives that leverage IT for community development. His blend of technical expertise and social consciousness marks him as a promising future leader in the 
+                    IT field.
+                </div>
+            </div>
+            <div class="item">
+                <img src="~/Content/Images/aaron.jpg" alt="Image 4">
+                <div class="description">
+                    <b>Aaron Vergel Rebulanan</b><br><br>
+                    Meet Aaron, a diligent and ambitious student at the Polytechnic University of the Philippines (PUP), pursuing a degree in Information Technology. 
+                    With a keen interest in software development and a passion for innovation, Jane excels in her academic pursuits, consistently achieving top grades. 
+                    Beyond the classroom, hhe is actively involved in various extracurricular activities, including serving as a member of the university's tech club and 
+                    participating in community outreach programs. Her commitment to learning and her proactive approach to problem-solving make her a standout student and a 
+                    promising future leader in the tech industry.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- User Type Modal -->
+    <div class="modal fade" id="userTypeModal" tabindex="-1" role="dialog" aria-labelledby="userTypeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userTypeModalLabel">Select User Type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- User type selection options -->
+                    <div class="user-type-option" onclick="selectUserType('Alumni')">Alumni</div>
+                    <div class="user-type-option" onclick="selectUserType('Company')">Company</div>
+                    <div class="user-type-option" onclick="selectUserType('Admin')">Admin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>
-
-
-
-

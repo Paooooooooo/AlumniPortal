@@ -1,13 +1,13 @@
-﻿@model List<AlumniPortal.Models.event_tbl>
-@using AlumniPortal.Helpers
+﻿@model AlumniPortal.Models.JobPostDetailsModel
+
 @{
-    ViewBag.Title = "Events";
+    ViewBag.Title = "JobDetails";
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home - Alumni Portal</title>
+    <title>Job Details - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -66,25 +66,45 @@
             margin-left: 10px;
         }
 
-        .container {
+        .content-container {
             margin-top:6rem;
-            margin-left:0;
-            margin-right:0;
+            font-family: 'Noto Sans', serif;
         }
 
-        h2 {
-            margin-bottom: 30px;
+        .job-details {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
         }
 
-        .card {
-            margin-bottom: 20px;
+        .job-title {
+            font-size: 24px;
+            font-weight: bold;
         }
+
+        .company-name {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .job-specifications, .job-details-table, .contact-info {
+            margin-top: 10px;
+        }
+
+            .job-details-table th, .job-details-table td {
+                padding: 10px;
+            }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -122,23 +142,33 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <h2>Events</h2>
-        <div class="row">
-            @foreach (var event_tbl in Model)
-            {
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => event_tbl.event_name)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => event_tbl.event_date)</h6>
-                            <p class="card-text">@Html.Raw(Html.ConvertUrlsToLinks(event_tbl.event_desc))</p>
-                            <p class="card-text"><small class="text-muted">Posted on: @Html.DisplayFor(modelItem => event_tbl.event_post_date)</small></p>
-                            <p class="card-text"><small class="text-muted">Location: @Html.DisplayFor(modelItem => event_tbl.event_loc)</small></p>
-                        </div>
-                    </div>
-                </div>
-            }
+    <div class="content-container">
+        <div class="job-details">
+            <h2 class="job-title">@Model.JobTitle</h2>
+            <h3 class="company-name">@Model.CompanyName</h3>
+            <div class="section-title">Job Description</div>
+            <p class="job-specifications">@Model.JobSpecifications</p>
+
+
+            <table class="table job-details-table">
+                <tr>
+                    <th style="font-weight: bold;">Job Type</th>
+                    <th style="font-weight: bold;">Job Target</th>
+                    <th style="font-weight: bold;">Salary</th>
+                </tr>
+                <tr>
+                    <td>@Model.JobType</td>
+                    <td>@Model.JobTarget</td>
+                    <td>@Model.JobSalary</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Contact Information</div>
+            <div class="contact-info">
+                <p>Contact Name: @Model.CompanyContactName</p>
+                <p>Contact Number: @Model.CompanyContactNumber</p>
+                <p>Email: @Model.CompanyEmail</p>
+            </div>
         </div>
     </div>
     <!-- Bootstrap JS and dependencies -->

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AlumniPortal.Models;
 using Newtonsoft.Json;
+using static AlumniPortal.Models.JobPostIndexModel;
 
 namespace AlumniPortal.Controllers
 {
@@ -17,7 +18,42 @@ namespace AlumniPortal.Controllers
         // GET: Alumni
         public ActionResult Index()
         {
-            List<job_post_tbl> jobPost = db.job_post_tbl.ToList(); 
+            var jobPosts = (from job in db.job_post_tbl
+                            join comp in db.comp_tbl on job.comp_id equals comp.comp_id
+                            select new JobPostIndexModel
+                            {
+                                JobId = job.job_id,
+                                JobTitle = job.job_title,
+                                JobLocation = job.job_loc,
+                                CompanyName = comp.comp_name
+                            }).ToList();
+
+            return View(jobPosts);
+        }
+
+        public ActionResult JobDetails(int id)
+        {
+            var jobPost = (from job in db.job_post_tbl
+                           join comp in db.comp_tbl on job.comp_id equals comp.comp_id
+                           where job.job_id == id
+                           select new JobPostDetailsModel
+                           {
+                               JobTitle = job.job_title,
+                               CompanyName = comp.comp_name,
+                               JobSpecifications = job.job_specs,
+                               JobSalary = job.job_salary,
+                               JobType = job.job_type,
+                               JobTarget = job.job_target,
+                               CompanyContactName = comp.comp_con_name,
+                               CompanyContactNumber = comp.comp_con_num,
+                               CompanyEmail = comp.comp_email
+                           }).FirstOrDefault();
+
+            if (jobPost == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(jobPost);
         }
 
@@ -26,6 +62,14 @@ namespace AlumniPortal.Controllers
             List<comp_tbl> companies = db.comp_tbl.ToList(); // Retrieve companies data from database
             return View(companies);
         }
+
+        public ActionResult CompanyJobPosts(int compId)
+        {
+            // Retrieve job posts for the selected company from the database
+            var jobPosts = db.job_post_tbl.Where(j => j.comp_id == compId).ToList();
+            return View(jobPosts);
+        }
+
 
         public ActionResult ManageCV()
         {
@@ -105,7 +149,6 @@ namespace AlumniPortal.Controllers
 
             return View(model);
         }
-
         [HttpGet]
         public ActionResult EditCV(int id)
         {
@@ -125,10 +168,72 @@ namespace AlumniPortal.Controllers
             var viewModel = new EditCVViewModel
             {
                 cv_id = cv.cv_id,
+                Experiences = cv.experiences,
+                Skills = cv.skills,
+                EducAttainments = cv.educ_attain
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: EditCV
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCV(EditCVViewModel model)
+        {
+            var alumniNum = Session["AlumniId"] as string;
+
+            if (string.IsNullOrEmpty(alumniNum))
+            {
+                return RedirectToAction("LoginAlumni", "Account");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var cv = db.cv_tbl.SingleOrDefault(c => c.cv_id == model.cv_id && c.alum_num == alumniNum);
+                if (cv == null)
+                {
+                    return HttpNotFound("CV record not found.");
+                }
+
+                // Update values
+                cv.experiences = model.Experiences;
+                cv.skills = model.Skills;
+                cv.educ_attain = model.EducAttainments;
+
+                db.SaveChanges();
+                return RedirectToAction("ManageCV");
+            }
+
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult AppendCV(int id)
+        {
+            var alumniNum = Session["AlumniId"] as string;
+
+            if (string.IsNullOrEmpty(alumniNum))
+            {
+                return RedirectToAction("LoginAlumni", "Account");
+            }
+
+            var cv = db.cv_tbl.SingleOrDefault(c => c.cv_id == id && c.alum_num == alumniNum);
+            if (cv == null)
+            {
+                return HttpNotFound("CV record not found.");
+            }
+
+            var viewModel = new AppendCVViewModel
+            {
+                cv_id = cv.cv_id,
                 alum_num = alumniNum,
-                Experiences = cv.experiences.Split(',').ToList(),
-                Skills = cv.skills.Split(',').ToList(),
-                EducAttainments = cv.educ_attain.Split(',').ToList()
+                // Populate with existing data if needed
+                Experiences = new List<string> { cv.experiences },
+                Skills = new List<string> { cv.skills },
+                EducAttainments = new List<string> { cv.educ_attain }
             };
 
             return View(viewModel);
@@ -136,32 +241,33 @@ namespace AlumniPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCV(EditCVViewModel model) 
+        public ActionResult AppendCV(AppendCVViewModel model)
         {
+            var alumniNum = Session["AlumniId"] as string;
+
+            if (string.IsNullOrEmpty(alumniNum))
+            {
+                return RedirectToAction("LoginAlumni", "Account");
+            }
+
             if (ModelState.IsValid)
             {
-                var alumniNum = Session["AlumniId"] as string;
+                // Assign alum_num
+                model.alum_num = alumniNum;
 
-                if (string.IsNullOrEmpty(alumniNum))
+                // Example of saving multiple entries
+                foreach (var experience in model.Experiences)
                 {
-                    return RedirectToAction("LoginAlumni", "Account");
+                    var newCV = new cv_tbl
+                    {
+                        experiences = experience,
+                        skills = string.Join(", ", model.Skills),
+                        educ_attain = string.Join(", ", model.EducAttainments),
+                        alum_num = model.alum_num
+                    };
+
+                    db.cv_tbl.Add(newCV);
                 }
-
-                var cv = db.cv_tbl.SingleOrDefault(c => c.cv_id == model.cv_id && c.alum_num == alumniNum);
-
-                if (cv == null)
-                {
-                    return HttpNotFound("CV record not found.");
-                }
-
-                // Update experiences
-                UpdateList(cv, model.Experiences, "experiences");
-
-                // Update skills
-                UpdateList(cv, model.Skills, "skills");
-
-                // Update educational attainments
-                UpdateList(cv, model.EducAttainments, "educ_attain");
 
                 db.SaveChanges();
 
@@ -169,33 +275,6 @@ namespace AlumniPortal.Controllers
             }
 
             return View(model);
-        }
-
-        private void UpdateList(cv_tbl cv, List<string> newItems, string propertyName)
-        {
-            var existingItems = cv.GetType().GetProperty(propertyName).GetValue(cv, null)?.ToString()?.Split(',') ?? new string[0];
-
-            var updatedItems = new List<string>();
-
-            // Handle updates (delete and replace)
-            foreach (var existingItem in existingItems)
-            {
-                if (newItems.Contains(existingItem.Trim()))
-                {
-                    updatedItems.Add(existingItem.Trim()); // Add existing item
-                }
-            }
-
-            // Handle additions
-            foreach (var newItem in newItems)
-            {
-                if (!existingItems.Contains(newItem.Trim()))
-                {
-                    updatedItems.Add(newItem.Trim()); // Add new item
-                }
-            }
-
-            cv.GetType().GetProperty(propertyName).SetValue(cv, string.Join(",", updatedItems));
         }
 
         public ActionResult DeleteCV(int id)
@@ -213,13 +292,14 @@ namespace AlumniPortal.Controllers
             return RedirectToAction("ManageCV");
         }
 
+        [HttpGet]
         public ActionResult Events() // Display Events
         {
             List<event_tbl> events = db.event_tbl.ToList(); 
             return View(events);
         }
 
-        public ActionResult AlumniProfile()
+        public ActionResult AlumniProfile(string id)
         {
             var alumniNum = Session["AlumniId"] as string;
 
@@ -234,15 +314,105 @@ namespace AlumniPortal.Controllers
                 return HttpNotFound("Alumni not found.");
             }
 
-            return View(alumni);
+            var viewModel = new AlumniProfileViewModel
+            {
+                AlumNum = alumni.alum_num,
+                DeptId = alumni.dept_id,
+                AlumName = alumni.alum_name,
+                AlumSex = alumni.alum_sex,
+                AlumBdate = alumni.alum_bdate,
+                YrGrad = alumni.yr_grad,
+                AlumEmail = alumni.alum_email,
+                AlumCon = alumni.alum_con
+            };
+
+            return View(viewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AlumniProfile(AlumniProfileViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var alumni = db.alum_tbl.SingleOrDefault(a => a.alum_num == viewModel.AlumNum);
+                if (alumni == null)
+                {
+                    return HttpNotFound("Alumni not found.");
+                }
+
+                alumni.dept_id = viewModel.DeptId;
+                alumni.alum_name = viewModel.AlumName;
+                alumni.alum_sex = viewModel.AlumSex;
+                alumni.alum_bdate = viewModel.AlumBdate;
+                alumni.yr_grad = viewModel.YrGrad;
+                alumni.alum_email = viewModel.AlumEmail;
+                alumni.alum_con = viewModel.AlumCon;
+
+                db.Entry(alumni).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("AlumniProfile", new { id = alumni.alum_num });
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
         public ActionResult ChangePassword()
         {
-            // Implement change password logic here
-            // Placeholder for demonstration
+            var alumniNum = Session["AlumniId"] as string;
+            if (string.IsNullOrEmpty(alumniNum))
+            {
+                return RedirectToAction("LoginAlumni", "Account");
+            }
+
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var alumniNum = Session["AlumniId"] as string;
+            if (string.IsNullOrEmpty(alumniNum))
+            {
+                return RedirectToAction("LoginAlumni", "Account");
+            }
+
+            var alumni = db.alum_tbl.SingleOrDefault(a => a.alum_num == alumniNum);
+            if (alumni == null)
+            {
+                return HttpNotFound("Alumni not found.");
+            }
+
+            if (alumni.alum_password != model.CurrentPassword)
+            {
+                TempData["ErrorMessage"] = "Current password is incorrect.";
+                return View(model);
+            }
+
+            if (model.NewPassword != model.ConfirmNewPassword)
+            {
+                ModelState.AddModelError("", "New password and confirm password do not match.");
+                return View(model);
+            }
+
+            alumni.alum_password = model.NewPassword;
+            db.Entry(alumni).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Password changed successfully.";
+            return View();
+        }
+
+
+
 
         public ActionResult Logout()
         {
