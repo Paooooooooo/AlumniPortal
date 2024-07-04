@@ -138,6 +138,115 @@ namespace AlumniPortal.Controllers
             List<event_tbl> events = db.event_tbl.ToList(); 
             return View(events);
         }
+
+        public ActionResult CompanyProfile()
+        {
+            var compId = Session["CompanyId"] as int?;
+
+            if (!compId.HasValue)
+            {
+                return RedirectToAction("LoginCompany", "Account");
+            }
+
+            var company = db.comp_tbl.SingleOrDefault(c => c.comp_id == compId.Value);
+            if (company == null)
+            {
+                return HttpNotFound("Company not found.");
+            }
+
+            var viewModel = new CompProfileViewModel
+            {
+                CompId = company.comp_id,
+                CompName = company.comp_name,
+                CompConNum = company.comp_con_num,
+                CompConName = company.comp_con_name,
+                CompEmail = company.comp_email,
+                CompAddress = company.comp_address,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanyProfile(CompProfileViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var company = db.comp_tbl.SingleOrDefault(c => c.comp_id == viewModel.CompId);
+                if (company == null)
+                {
+                    return HttpNotFound("Company not found.");
+                }
+
+                company.comp_name = viewModel.CompName;
+                company.comp_con_num = viewModel.CompConNum;
+                company.comp_con_name = viewModel.CompConName;
+                company.comp_email = viewModel.CompEmail;
+                company.comp_address = viewModel.CompAddress;
+
+                db.Entry(company).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("CompanyProfile", new { id = company.comp_id });
+            }
+
+            return View(viewModel);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            var compId = (int)Session["CompanyId"];
+            var company = db.comp_tbl.SingleOrDefault(c => c.comp_id == compId);
+
+            if (company == null)
+            {
+                return HttpNotFound("Company not found.");
+            }
+
+            var viewModel = new ChangePasswordCompany
+            {
+                CompId = company.comp_id
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordCompany viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var company = db.comp_tbl.SingleOrDefault(c => c.comp_id == viewModel.CompId);
+                if (company == null)
+                {
+                    TempData["ErrorMessage"] = "Company not found.";
+                    return View(viewModel);
+                }
+
+                if (company.comp_password != viewModel.CurrentCompPassword)
+                {
+                    TempData["ErrorMessage"] = "The current password is incorrect.";
+                    return View(viewModel);
+                }
+
+                if (viewModel.NewCompPassword != viewModel.ConfirmCompPassword)
+                {
+                    TempData["ErrorMessage"] = "The new password and confirmation password do not match.";
+                    return View(viewModel);
+                }
+
+                company.comp_password = viewModel.NewCompPassword;
+                db.Entry(company).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "Password changed successfully.";
+                return View(viewModel);
+            }
+
+            return View(viewModel);
+        }
         public ActionResult Logout()
         {
             Session.Clear(); // Clear the session

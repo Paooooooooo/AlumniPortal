@@ -67,12 +67,83 @@
 
         .container {
             margin-top: 6rem;
+            max-width: 1500px; /* Set maximum width of the container */
+            padding:5px;
         }
 
-        .content-container h2 {
-            margin-top: -20px; /* Example: move the h2 "Job Board" 10px upward */
-            margin-bottom: 20px;
+        .content-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            margin-bottom: 2rem;
+            max-width: 100%; /* Ensure content container takes full width */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
         }
+
+            .content-container h2 {
+                margin-bottom: 20px;
+                color: black;
+                font-family: 'Noto Sans', serif;
+                font-weight: bold;
+            }
+
+        .table-responsive {
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            color: #212529;
+        }
+
+            .table th {
+                background-color: #f8f9fa;
+                color: #495057;
+                font-weight: bold;
+            }
+
+            .table td {
+                vertical-align: middle;
+                border-bottom: 1px solid #ddd; /* Add light gray border at the bottom of cells */
+            }
+
+            .table thead th {
+                border-bottom: 2px solid black;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+                transition: background-color 0.5s ease;
+            }
+
+            .table tbody tr:hover {
+                background-color: #d4d4d4;
+                color: #212529;
+            }
+
+            .table a {
+                color: #007bff;
+            }
+
+                .table a:hover {
+                    color: #0056b3;
+                }
+
+        .btn-custom {
+            background-color: #a52a2a;
+            color: white !important;
+            border-color: #a52a2a;
+            margin-top:5px;
+        }
+
+            .btn-custom:hover {
+                background-color: #e6be8a;
+                color: black !important;
+                border-color: #e6be8a;
+            }
     </style>
 </head>
 <body>
@@ -103,10 +174,10 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Alumni/Profile">Profile</a>
-                            <a class="dropdown-item" href="/Alumni/ChangePassword">Change Password</a>
+                            <a class="dropdown-item" href="/Company/CompanyProfile">Profile</a>
+                            <a class="dropdown-item" href="/Company/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/Alumni/Logout">Logout</a>
+                            <a class="dropdown-item" href="/Company/Logout">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -114,84 +185,53 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Job Postings</h2>
-
-        <p>
-            @Html.ActionLink("Create New", "CreateJobPost")
-        </p>
-
-        @if (Model.Any())
-        {
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_target)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_loc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_specs)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_salary)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_post_date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.job_deadline)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_target)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_loc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_specs)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_salary)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_post_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.job_deadline)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditJobPost", new { id = item.job_id }) |
-                            @Html.ActionLink("Delete", "DeleteJobPost", new { id = item.job_id })
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        }
-        else
-        {
-            <p>No Jobs Yet Posted.</p>
-        }
-
+        <div class="content-container">
+            <h2>Job Postings</h2>
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Field</th>
+                                <th>Location</th>
+                                <th>Specifications</th>
+                                <th>Salary</th>
+                                <th>Type</th>
+                                <th>Post Date</th>
+                                <th>Deadline</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.job_title)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.job_target)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.job_loc)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.job_specs)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.job_salary)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.job_type)</td>
+                                    <td>@item.job_post_date.ToShortDateString()</td>
+                                    <td>@item.job_deadline.ToShortDateString()</td>
+                                    <td>
+                                        <a href="@Url.Action("EditJobPost", new { id = item.job_id })" class="btn btn-custom">Edit</a>
+                                        <a href="@Url.Action("DeleteJobPost", new { id = item.job_id })" class="btn btn-custom">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No Jobs Yet Posted.</p>
+            }
+        <a href="@Url.Action("CreateJobPost")" class="btn btn-custom">Create New</a>
+        </div>
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -199,3 +239,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+

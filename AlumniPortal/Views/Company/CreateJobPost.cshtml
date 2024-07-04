@@ -65,13 +65,59 @@
             margin-left: 10px; /* Adjust the space between each nav item */
         }
 
-        .container {
-            margin-top: 6rem;
+        .btn-create {
+            background-color: #a52a2a;
+            color: white;
         }
 
-        .content-container h2 {
-            margin-top: -20px; /* Example: move the h2 "Job Board" 10px upward */
-            margin-bottom: 20px;
+            .btn-create:hover {
+                background-color: #e6be8a;
+                color: black;
+            }
+
+        .btn-cancel {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+            .btn-cancel:hover {
+                background-color: #e2e6ea;
+                color: black;
+            }
+
+        .container {
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 600px; /* Set a max-width for the form */
+            margin: 0 auto; /* Center the form container */
+        }
+
+            .form-container h2 {
+                margin-bottom: 2rem;
+            }
+
+        .form-horizontal .form-group {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; Remove or set to align-items: flex-start; */
+            /* Center form groups horizontally */
+        }
+
+            .form-horizontal .form-group .col-md-10 {
+                width: 100%; /* Ensure the inputs take full width */
+                max-width: 500px; /* Set a max-width for the inputs */
+            }
+
+        .form-control {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -103,7 +149,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Company/Profile">Profile</a>
+                            <a class="dropdown-item" href="/Company/CompanyProfile">Profile</a>
                             <a class="dropdown-item" href="/Company/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Company/Logout">Logout</a>
@@ -114,87 +160,90 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Create Job Post</h2>
+        <div class="form-container">
+            <h2 class="text-left">Create Job Post</h2>
+            @using (Html.BeginForm("CreateJobPost", "Company", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
 
-        @using (Html.BeginForm("CreateJobPost", "Company", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_title, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_title, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_title, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_title, "Job Title", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job_title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job_title, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <!-- Add fields for job_target, job_loc, job_specs, job_salary, job_type, job_deadline -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_target, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_target, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_target, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_target, "Field", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job_target, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job_target, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_loc, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_loc, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_loc, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_loc, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job_loc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job_loc, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_specs, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_specs, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_specs, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_specs, "Job Specifications", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.job_specs, new { @class = "form-control", rows = 4 }) <!-- rows attribute determines the visible number of rows -->
+                        @Html.ValidationMessageFor(model => model.job_specs, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_salary, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_salary, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_salary, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_salary, "Salary", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job_salary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job_salary, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_type, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.job_type, "Job Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job_type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job_type, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_post_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_post_date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_post_date, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("job_post_date", "Post Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.job_post_date, new { @class = "form-control", @type = "date" })
+                        @Html.ValidationMessageFor(model => model.job_post_date, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.job_deadline, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.job_deadline, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.job_deadline, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("job_deadline", "Deadline", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.job_deadline, new { @class = "form-control", @type = "date" })
+                        @Html.ValidationMessageFor(model => model.job_deadline, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                    @Html.ActionLink("Cancel", "JobPosting", "Company", null, new { @class = "btn btn-default" })
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-create" />
+                        <a href="/Company/JobPosting" class="btn btn-cancel">Cancel</a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+

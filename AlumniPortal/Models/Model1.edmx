@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="comp_id" />
           </Key>
-          <Property Name="comp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comp_id" Type="int" Nullable="false" />
           <Property Name="comp_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="comp_con_num" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="comp_con_name" Type="varchar" MaxLength="50" Nullable="false" />
@@ -213,19 +213,6 @@
           <Property Name="comp_id" Type="Int32" Nullable="false" />
           <Property Name="comp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="comp_tbl">
-          <Key>
-            <PropertyRef Name="comp_id" />
-          </Key>
-          <Property Name="comp_id" Type="Int32" Nullable="false" />
-          <Property Name="comp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comp_con_num" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comp_con_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comp_address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="comp_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="job_post_tbl" Relationship="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" FromRole="comp_tbl" ToRole="job_post_tbl" />
-        </EntityType>
         <EntityType Name="event_reg_tbl">
           <Key>
             <PropertyRef Name="event_reg_id" />
@@ -248,15 +235,10 @@
           <EntitySet Name="admin_tbl" EntityType="Self.admin_tbl" />
           <EntitySet Name="alum_acc_tbl" EntityType="Self.alum_acc_tbl" />
           <EntitySet Name="comp_acc_tbl" EntityType="Self.comp_acc_tbl" />
-          <EntitySet Name="comp_tbl" EntityType="Self.comp_tbl" />
           <EntitySet Name="event_reg_tbl" EntityType="Self.event_reg_tbl" />
           <EntitySet Name="user_tbl" EntityType="Self.user_tbl" />
           <EntitySet Name="cv_tbl" EntityType="AlumPortalDbModel.cv_tbl" />
           <EntitySet Name="job_post_tbl" EntityType="AlumPortalDbModel.job_post_tbl" />
-          <AssociationSet Name="FK_job_post_tbl_comp_tbl" Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl">
-            <End Role="comp_tbl" EntitySet="comp_tbl" />
-            <End Role="job_post_tbl" EntitySet="job_post_tbl" />
-          </AssociationSet>
           <EntitySet Name="alum_tbl" EntityType="AlumPortalDbModel.alum_tbl" />
           <EntitySet Name="dept_tbl" EntityType="AlumPortalDbModel.dept_tbl" />
           <AssociationSet Name="FK_cv_tbl_alum_tbl" Association="AlumPortalDbModel.FK_cv_tbl_alum_tbl">
@@ -264,6 +246,11 @@
             <End Role="cv_tbl" EntitySet="cv_tbl" />
           </AssociationSet>
           <EntitySet Name="event_tbl" EntityType="AlumPortalDbModel.event_tbl" />
+          <EntitySet Name="comp_tbl" EntityType="AlumPortalDbModel.comp_tbl" />
+          <AssociationSet Name="FK_job_post_tbl_comp_tbl" Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl">
+            <End Role="comp_tbl" EntitySet="comp_tbl" />
+            <End Role="job_post_tbl" EntitySet="job_post_tbl" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="cv_tbl">
           <Key>
@@ -292,18 +279,6 @@
           <Property Name="job_deadline" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="comp_tbl" Relationship="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" FromRole="job_post_tbl" ToRole="comp_tbl" />
         </EntityType>
-        <Association Name="FK_job_post_tbl_comp_tbl">
-          <End Type="AlumPortalDbModel.comp_tbl" Role="comp_tbl" Multiplicity="1" />
-          <End Type="AlumPortalDbModel.job_post_tbl" Role="job_post_tbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="comp_tbl">
-              <PropertyRef Name="comp_id" />
-            </Principal>
-            <Dependent Role="job_post_tbl">
-              <PropertyRef Name="comp_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="alum_tbl">
           <Key>
             <PropertyRef Name="alum_num" />
@@ -351,6 +326,31 @@
           <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="event_loc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="comp_tbl">
+          <Key>
+            <PropertyRef Name="comp_id" />
+          </Key>
+          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="comp_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="comp_con_num" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="comp_con_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="comp_email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="comp_address" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="comp_password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="job_post_tbl" Relationship="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" FromRole="comp_tbl" ToRole="job_post_tbl" />
+        </EntityType>
+        <Association Name="FK_job_post_tbl_comp_tbl">
+          <End Type="AlumPortalDbModel.comp_tbl" Role="comp_tbl" Multiplicity="1" />
+          <End Type="AlumPortalDbModel.job_post_tbl" Role="job_post_tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comp_tbl">
+              <PropertyRef Name="comp_id" />
+            </Principal>
+            <Dependent Role="job_post_tbl">
+              <PropertyRef Name="comp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -393,19 +393,6 @@
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="comp_id" ColumnName="comp_id" />
                 <ScalarProperty Name="comp_email" ColumnName="comp_email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="comp_tbl">
-            <EntityTypeMapping TypeName="AlumPortalDbModel.comp_tbl">
-              <MappingFragment StoreEntitySet="comp_tbl">
-                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
-                <ScalarProperty Name="comp_name" ColumnName="comp_name" />
-                <ScalarProperty Name="comp_con_num" ColumnName="comp_con_num" />
-                <ScalarProperty Name="comp_con_name" ColumnName="comp_con_name" />
-                <ScalarProperty Name="comp_email" ColumnName="comp_email" />
-                <ScalarProperty Name="comp_address" ColumnName="comp_address" />
-                <ScalarProperty Name="comp_password" ColumnName="comp_password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -489,6 +476,19 @@
                 <ScalarProperty Name="event_name" ColumnName="event_name" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
                 <ScalarProperty Name="event_id" ColumnName="event_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comp_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.comp_tbl">
+              <MappingFragment StoreEntitySet="comp_tbl">
+                <ScalarProperty Name="comp_password" ColumnName="comp_password" />
+                <ScalarProperty Name="comp_address" ColumnName="comp_address" />
+                <ScalarProperty Name="comp_email" ColumnName="comp_email" />
+                <ScalarProperty Name="comp_con_name" ColumnName="comp_con_name" />
+                <ScalarProperty Name="comp_con_num" ColumnName="comp_con_num" />
+                <ScalarProperty Name="comp_name" ColumnName="comp_name" />
+                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

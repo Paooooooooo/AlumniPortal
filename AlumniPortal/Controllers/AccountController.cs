@@ -92,7 +92,7 @@ namespace AlumniPortal.Controllers
 
                     // Store the session ID in the session
                     Session["SessionId"] = sessionId;
-                    Session["CompanyId"] = company.comp_id; // Store alumni ID as well for further use
+                    Session["CompanyId"] = company.comp_id; 
 
                     // Authentication successful
                     // Set authentication cookie or session as needed

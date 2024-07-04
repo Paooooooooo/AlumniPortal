@@ -65,13 +65,56 @@
         .nav-item + .nav-item {
             margin-left: 10px; /* Adjust the space between each nav item */
         }
-        .container {
-            margin-top: 6rem;
+
+        .content-container {
+            margin-top: 2rem;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom:20px;
         }
 
-            .content-container h2 {
-                margin-top: -20px; /* Example: move the h2 "Job Board" 10px upward */
-                margin-bottom: 20px;
+        .content-container h2 {
+            margin-top: 6rem; /* Example: move the h2 "Alumni List" 10px upward */
+            margin-bottom: 20px;
+
+        }
+
+        .card {
+            width: 100%;
+            margin: 1rem 0;
+            border: 1px solid #e6be8a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to cards */
+            transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+            }
+
+        .card-header {
+            background-color: #a52a2a;
+            color: white;
+            font-family: 'Cinzel', serif;
+        }
+
+        .card-body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .card-text {
+            font-size: 14px;
+        }
+
+        .card-body .btn-primary {
+            background-color: #a52a2a;
+            border-color: #a52a2a;
+            color: white;
+        }
+
+            .card-body .btn-primary:hover {
+                background-color: #e6be8a;
+                border-color: #e6be8a;
+                color: black;
             }
     </style>
 </head>
@@ -103,7 +146,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Company/Profile">Profile</a>
+                            <a class="dropdown-item" href="/Company/CompanyProfile">Profile</a>
                             <a class="dropdown-item" href="/Company/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Company/Logout">Logout</a>
@@ -113,36 +156,29 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="content-container">
         <h2>Alumni List</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Alumni Name</th>
-                    <th>Alumni Sex</th>
-                    <th>Birthdate</th>
-                    <th>Year Graduated</th>
-                    <th>Email</th>
-                    <th>Contact Number</th>
-                    <th></th> <!-- For Details link -->
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var alumnus in Model)
-                {
-                    <tr>
-                        <td>@alumnus.alum_name</td>
-                        <td>@alumnus.alum_sex</td>
-                        <td>@alumnus.alum_bdate.ToShortDateString()</td> <!-- Adjust date format as needed -->
-                        <td>@alumnus.yr_grad</td>
-                        <td>@alumnus.alum_email</td>
-                        <td>@alumnus.alum_con</td>
-                        <td>@Html.ActionLink("CV Details", "AlumniCVDetails", new { id = alumnus.alum_num })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="row">
+            @foreach (var alumnus in Model)
+            {
+                <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-header">
+                            @alumnus.alum_name
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Sex:</strong> @alumnus.alum_sex</p>
+                            <p class="card-text"><strong>Birthdate:</strong> @alumnus.alum_bdate.ToShortDateString()</p> <!-- Adjust date format as needed -->
+                            <p class="card-text"><strong>Year Graduated:</strong> @alumnus.yr_grad</p>
+                            <p class="card-text"><strong>Email:</strong> @alumnus.alum_email</p>
+                            <p class="card-text"><strong>Contact Number:</strong> @alumnus.alum_con</p>
+                            <a href="@Url.Action("AlumniCVDetails", new { id = alumnus.alum_num })" class="btn btn-primary float-right">CV Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -150,4 +186,3 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
-

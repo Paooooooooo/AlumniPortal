@@ -333,13 +333,15 @@
     </Compile>
     <Compile Include="Models\AlumniLoginModel.cs" />
     <Compile Include="Models\AppendCVViewModel.cs" />
+    <Compile Include="Models\ChangePasswordCompany.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\CompProfileViewModel.cs" />
+    <Compile Include="Models\comp_tbl.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CreateJobPostModel.cs" />
     <Compile Include="Models\CompanyLoginModel.cs" />
     <Compile Include="Models\comp_acc_tbl.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\comp_tbl.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cv_tbl.cs">
@@ -455,6 +457,8 @@
     <Content Include="Views\Alumni\JobDetails.cshtml" />
     <Content Include="Views\Alumni\AppendCV.cshtml" />
     <Content Include="Views\Alumni\CompanyJobPosts.cshtml" />
+    <Content Include="Views\Company\CompanyProfile.cshtml" />
+    <Content Include="Views\Company\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

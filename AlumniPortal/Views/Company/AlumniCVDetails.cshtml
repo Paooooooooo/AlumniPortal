@@ -15,71 +15,94 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         .navbar-custom {
-            background-color: #a52a2a; /* Pale maroon color */
+            background-color: #a52a2a;
             width: 100%;
-            z-index: 1000; /* Ensure navbar is on top */
-            min-height: 4.5rem; /* Set minimum height for the navbar */
-            padding: 0 1rem; /* Adjust padding inside the navbar */
+            z-index: 1000;
+            min-height: 4.5rem;
+            padding: 0 1rem;
         }
 
         .navbar-brand, .nav-link {
             color: white !important;
-            font-family: 'Cinzel', serif; /* Apply Cinzel font to navbar elements */
-            font-weight: 400; /* Apply Cinzel Regular (400) */
-            font-size: 20px; /* Increase font size for navbar text */
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 20px;
         }
 
         .navbar-brand {
             display: flex;
-            align-items: center; /* Center vertically */
+            align-items: center;
         }
 
             .navbar-brand img {
-                height: 50px; /* Set image height */
-                margin-right: 10px; /* Adjust margin between image and text */
+                height: 50px;
+                margin-right: 10px;
             }
 
         .nav-link.btn-primary {
             font-weight: bold;
-            background-color: #e6be8a; /* Change button background color to #e6be8a */
-            border-color: #e6be8a; /* Match border color with background color */
-            color: black !important; /* Set initial text color to black */
+            background-color: #e6be8a;
+            border-color: #e6be8a;
+            color: black !important;
         }
 
             .nav-link.btn-primary:hover {
                 font-weight: bold;
-                background-color: #cc9f54; /* Slightly darker hover background color */
-                border-color: #cc9f54; /* Match hover border color with hover background color */
-                color: white !important; /* Change text color to white on hover */
+                background-color: #cc9f54;
+                border-color: #cc9f54;
+                color: white !important;
             }
 
         .navbar-nav .nav-item .nav-link {
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
             .navbar-nav .nav-item .nav-link:hover {
-                background-color: #cc9f54; /* Hover background color */
-                color: white !important; /* Text color on hover */
+                background-color: #cc9f54;
+                color: white !important;
             }
 
         .nav-item + .nav-item {
-            margin-left: 10px; /* Adjust the space between each nav item */
+            margin-left: 10px;
+        }
+
+        h2 {
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
         }
 
         .container {
             margin-top: 6rem;
+            margin-bottom: 4rem;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
-        .content-container h2 {
-            margin-top: -20px; /* Example: move the h2 "Job Board" 10px upward */
-            margin-bottom: 20px;
+        .btn-custom {
+            background-color: #a52a2a;
+            color: white;
+            border-color: #a52a2a;
         }
+
+            .btn-custom:hover {
+                background-color: #e6be8a;
+                color: black;
+                border-color: #e6be8a;
+            }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -104,10 +127,10 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Alumni/Profile">Profile</a>
-                            <a class="dropdown-item" href="/Alumni/ChangePassword">Change Password</a>
+                            <a class="dropdown-item" href="/Company/CompanyProfile">Profile</a>
+                            <a class="dropdown-item" href="/Company/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/Alumni/Logout">Logout</a>
+                            <a class="dropdown-item" href="/Company/Logout">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -126,19 +149,44 @@
         @if (ViewBag.CVRecords != null && ViewBag.CVRecords.Count > 0)
         {
             <table class="table">
-                <tr>
-                    <th>Experience</th>
-                    <th>Skills</th>
-                    <th>Educational Attainment</th>
-                </tr>
-                @foreach (var cvRecord in ViewBag.CVRecords)
-                {
+                <thead>
                     <tr>
-                        <td>@cvRecord.experiences</td>
-                        <td>@cvRecord.skills</td>
-                        <td>@cvRecord.educ_attain</td>
+                        <th>Experience</th>
+                        <th>Skills</th>
+                        <th>Educational Attainment</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var cvRecord in ViewBag.CVRecords)
+                    {
+                        <tr>
+                            <td>
+                                <ul>
+                                    @foreach (var experience in cvRecord.experiences.Split(','))
+                                    {
+                                        <li>@experience.Trim()</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var skill in cvRecord.skills.Split(','))
+                                    {
+                                        <li>@skill.Trim()</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var education in cvRecord.educ_attain.Split(','))
+                                    {
+                                        <li>@education.Trim()</li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         }
         else
@@ -146,7 +194,7 @@
             <p>No CV records found.</p>
         }
 
-        @Html.ActionLink("Back to Alumni List", "Index")
+        @Html.ActionLink("Back to Home", "Index", null, new { @class = "btn btn-custom" })
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -154,4 +202,3 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
-

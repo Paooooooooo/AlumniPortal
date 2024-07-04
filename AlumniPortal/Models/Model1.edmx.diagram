@@ -9,16 +9,16 @@
         <EntityTypeShape EntityType="AlumPortalDbModel.admin_tbl" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.alum_acc_tbl" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.comp_acc_tbl" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AlumPortalDbModel.comp_tbl" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.event_reg_tbl" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.user_tbl" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.cv_tbl" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AlumPortalDbModel.job_post_tbl" Width="1.5" PointX="3.75" PointY="7.25" />
-        <AssociationConnector Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" />
         <EntityTypeShape EntityType="AlumPortalDbModel.alum_tbl" Width="1.5" PointX="8" PointY="3.5" />
         <EntityTypeShape EntityType="AlumPortalDbModel.dept_tbl" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="AlumPortalDbModel.FK_cv_tbl_alum_tbl" />
         <EntityTypeShape EntityType="AlumPortalDbModel.event_tbl" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AlumPortalDbModel.comp_tbl" Width="1.5" PointX="1.5" PointY="10.5" />
+        <AssociationConnector Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
