@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="comp_id" />
           </Key>
-          <Property Name="comp_id" Type="int" Nullable="false" />
+          <Property Name="comp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="comp_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="comp_con_num" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="comp_con_name" Type="varchar" MaxLength="50" Nullable="false" />
@@ -330,7 +330,7 @@
           <Key>
             <PropertyRef Name="comp_id" />
           </Key>
-          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="comp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="comp_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="comp_con_num" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="comp_con_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />

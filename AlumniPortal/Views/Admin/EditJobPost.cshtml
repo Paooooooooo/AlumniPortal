@@ -62,9 +62,64 @@
                 color: white !important; /* Text color on hover */
             }
 
-        .container {
-            margin: 0px;
+        .nav-item + .nav-item {
+            margin-left: 10px; /* Adjust the space between each nav item */
         }
+
+        .container {
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 600px; /* Set a max-width for the form */
+            margin: 0 auto; /* Center the form container */
+        }
+
+            .form-container h2 {
+                margin-bottom: 2rem;
+            }
+
+        .form-horizontal .form-group {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; Remove or set to align-items: flex-start; */
+            /* Center form groups horizontally */
+        }
+
+            .form-horizontal .form-group .col-md-10 {
+                width: 100%; /* Ensure the inputs take full width */
+                max-width: 500px; /* Set a max-width for the inputs */
+            }
+
+        .form-control {
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #a52a2a;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: #e6be8a;
+                color: black;
+            }
+
+        .btn-default {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+            .btn-default:hover {
+                background-color: #e2e6ea;
+                color: black;
+            }
     </style>
 </head>
 <body>
@@ -109,97 +164,94 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Edit Job Post</h2>
+        <div class="form-container">
+            <h2 class="text-left">Edit Job Post</h2>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>job_post_tbl</h4>
-                <hr />
-                @Html.ValidationSummary(true)
-                @Html.HiddenFor(model => model.job_id)
-                @Html.HiddenFor(model => model.comp_id)
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.job_id)
+            @Html.HiddenFor(model => model.comp_id)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_title, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_title)
-                        @Html.ValidationMessageFor(model => model.job_title)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_target, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_target)
-                        @Html.ValidationMessageFor(model => model.job_target)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_loc, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_loc)
-                        @Html.ValidationMessageFor(model => model.job_loc)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_specs, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_specs)
-                        @Html.ValidationMessageFor(model => model.job_specs)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_salary, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_salary)
-                        @Html.ValidationMessageFor(model => model.job_salary)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_type, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_type)
-                        @Html.ValidationMessageFor(model => model.job_type)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_post_date, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_post_date)
-                        @Html.ValidationMessageFor(model => model.job_post_date)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.job_deadline, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_deadline)
-                        @Html.ValidationMessageFor(model => model.job_deadline)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_title, "Job Title", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_title, "", new { @class = "text-danger" })
                 </div>
             </div>
-        }
 
-        <div>
-            @Html.ActionLink("Back to List", "CompanyDetails", new { id = Model.comp_id })
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_target, "Field", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_target, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_target, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_loc, "Job Location", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_loc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_loc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_specs, "Job Specifications", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_specs, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_specs, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_salary, "Salary", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_salary, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_salary, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.job_type, "Job Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.job_type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.job_type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("job_post_date", "Post Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.job_post_date, Model.job_post_date.ToString("yyyy-MM-dd"), new { @class = "form-control", @type = "date" })
+                    @Html.ValidationMessageFor(model => model.job_post_date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("job_deadline", "Deadline", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.job_deadline, Model.job_deadline.ToString("yyyy-MM-dd"), new { @class = "form-control", @type = "date" })
+                    @Html.ValidationMessageFor(model => model.job_deadline, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    @Html.ActionLink("Back", "CompanyDetails", new { id = Model.comp_id }, new { @class = "btn btn-default" })
+                </div>
+            </div>
         </div>
+            }
 
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

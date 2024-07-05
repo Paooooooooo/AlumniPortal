@@ -62,8 +62,63 @@
                 color: white !important; /* Text color on hover */
             }
 
+        .nav-item + .nav-item {
+            margin-left: 10px; /* Adjust the space between each nav item */
+        }
+
+        .btn-create {
+            background-color: #a52a2a;
+            color: white;
+        }
+
+            .btn-create:hover {
+                background-color: #e6be8a;
+                color: black;
+            }
+
+        .btn-cancel {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+            .btn-cancel:hover {
+                background-color: #e2e6ea;
+                color: black;
+            }
+
         .container {
-            margin: 0px;
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 600px; /* Set a max-width for the form */
+            margin: 0 auto; /* Center the form container */
+        }
+
+            .form-container h2 {
+                margin-bottom: 2rem;
+            }
+
+        .form-horizontal .form-group {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; Remove or set to align-items: flex-start; */
+            /* Center form groups horizontally */
+        }
+
+            .form-horizontal .form-group .col-md-10 {
+                width: 100%; /* Ensure the inputs take full width */
+                max-width: 500px; /* Set a max-width for the inputs */
+            }
+
+        .form-control {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -109,82 +164,72 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Add Company</h2>
-
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>comp_tbl</h4>
-                <hr />
-                @Html.ValidationSummary(true)
+        <div class="form-container">
+            <h2 class="text-left">Add Company</h2>
+            @using (Html.BeginForm("AddCompany", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_name, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_name)
-                        @Html.ValidationMessageFor(model => model.comp_name)
+                        @Html.EditorFor(model => model.comp_name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_con_num, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_con_num, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_con_num)
-                        @Html.ValidationMessageFor(model => model.comp_con_num)
+                        @Html.EditorFor(model => model.comp_con_num, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_con_num, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_con_name, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_con_name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_con_name)
-                        @Html.ValidationMessageFor(model => model.comp_con_name)
+                        @Html.EditorFor(model => model.comp_con_name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_con_name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_email, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_email, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_email)
-                        @Html.ValidationMessageFor(model => model.comp_email)
+                        @Html.EditorFor(model => model.comp_email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_email, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_address, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_address, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_address)
-                        @Html.ValidationMessageFor(model => model.comp_address)
+                        @Html.EditorFor(model => model.comp_address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_address, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.comp_password, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.comp_password, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.comp_password)
-                        @Html.ValidationMessageFor(model => model.comp_password)
+                        @Html.EditorFor(model => model.comp_password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.comp_password, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="col-md-10">
+                        <input type="submit" value="Add Company" class="btn btn-create" />
+                        <a href="@Url.Action("ManageCompanies", "Admin")" class="btn btn-cancel">Cancel</a>
                     </div>
                 </div>
-            </div>
-        }
-
-        <div>
-            @Html.ActionLink("Back to List", "ManageCompanies")
+            }
         </div>
-
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+

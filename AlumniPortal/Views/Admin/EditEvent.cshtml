@@ -62,9 +62,62 @@
                 color: white !important; /* Text color on hover */
             }
 
-        .container {
-            margin: 0px;
+        .nav-item + .nav-item {
+            margin-left: 10px; /* Adjust the space between each nav item */
         }
+
+        .container {
+            margin-top: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            max-width: 600px; /* Set a max-width for the form */
+            margin: 0 auto; /* Center the form container */
+        }
+
+            .form-container h2 {
+                margin-bottom: 2rem;
+            }
+
+        .form-horizontal .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .form-horizontal .form-group .col-md-10 {
+                width: 100%; /* Ensure the inputs take full width */
+                max-width: 500px; /* Set a max-width for the inputs */
+            }
+
+        .form-control {
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #a52a2a;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: #e6be8a;
+                color: black;
+            }
+
+        .btn-default {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+            .btn-default:hover {
+                background-color: #e2e6ea;
+                color: black;
+            }
     </style>
 </head>
 <body>
@@ -84,13 +137,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Admin/Index">Home</a>
                     </li>
-                    <li class="nav-item ml-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="/Admin/Events">Events</a>
                     </li>
-                    <li class="nav-item ml-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="/Admin/ManageAlumni">Alumni</a>
                     </li>
-                    <li class="nav-item ml-3">
+                    <li class="nav-item">
                         <a class="nav-link" href="/Admin/ManageCompanies">Companies</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -109,19 +162,16 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Edit Event</h2>
+        <div class="form-container">
+            <h2 class="text-left">Edit Event</h2>
+            @using (Html.BeginForm("EditEvent", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-horizontal">
-                <h4>Event</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.event_id)
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.event_name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.event_name, "Event Name", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.event_name, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.event_name, "", new { @class = "text-danger" })
@@ -129,23 +179,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.event_desc, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.event_desc, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.event_desc, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.event_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.event_date, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.event_date, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.event_loc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.event_loc, "Event Location", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.event_loc, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.event_loc, "", new { @class = "text-danger" })
@@ -153,15 +187,28 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                    @Html.LabelFor(model => model.event_date, "Event Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.event_date, Model.event_date.ToString("yyyy-MM-dd"), new { @class = "form-control", @type = "date" })
+                        @Html.ValidationMessageFor(model => model.event_date, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
-        }
 
-        <div>
-            @Html.ActionLink("Back to List", "Events")
+                <div class="form-group">
+                    @Html.LabelFor(model => model.event_desc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.event_desc, new { @class = "form-control", rows = 5 }) <!-- Adjust rows as needed -->
+                        @Html.ValidationMessageFor(model => model.event_desc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        @Html.ActionLink("Cancel", "Events", "Admin", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            }
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

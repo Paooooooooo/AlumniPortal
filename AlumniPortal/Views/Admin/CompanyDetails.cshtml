@@ -15,56 +15,96 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         .navbar-custom {
-            background-color: #a52a2a; /* Pale maroon color */
+            background-color: #a52a2a;
             width: 100%;
-            z-index: 1000; /* Ensure navbar is on top */
-            min-height: 4.5rem; /* Set minimum height for the navbar */
-            padding: 0 1rem; /* Adjust padding inside the navbar */
+            z-index: 1000;
+            min-height: 4.5rem;
+            padding: 0 1rem;
         }
 
         .navbar-brand, .nav-link {
             color: white !important;
-            font-family: 'Cinzel', serif; /* Apply Cinzel font to navbar elements */
-            font-weight: 400; /* Apply Cinzel Regular (400) */
-            font-size: 20px; /* Increase font size for navbar text */
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 20px;
         }
 
         .navbar-brand {
             display: flex;
-            align-items: center; /* Center vertically */
+            align-items: center;
         }
 
             .navbar-brand img {
-                height: 50px; /* Set image height */
-                margin-right: 10px; /* Adjust margin between image and text */
+                height: 50px;
+                margin-right: 10px;
             }
 
         .nav-link.btn-primary {
             font-weight: bold;
-            background-color: #e6be8a; /* Change button background color to #e6be8a */
-            border-color: #e6be8a; /* Match border color with background color */
-            color: black !important; /* Set initial text color to black */
+            background-color: #e6be8a;
+            border-color: #e6be8a;
+            color: black !important;
         }
 
             .nav-link.btn-primary:hover {
                 font-weight: bold;
-                background-color: #cc9f54; /* Slightly darker hover background color */
-                border-color: #cc9f54; /* Match hover border color with hover background color */
-                color: white !important; /* Change text color to white on hover */
+                background-color: #cc9f54;
+                border-color: #cc9f54;
+                color: white !important;
             }
 
         .navbar-nav .nav-item .nav-link {
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
             .navbar-nav .nav-item .nav-link:hover {
-                background-color: #cc9f54; /* Hover background color */
-                color: white !important; /* Text color on hover */
+                background-color: #cc9f54;
+                color: white !important;
             }
 
-        .container {
-            margin: 0px;
+        .nav-item + .nav-item {
+            margin-left: 10px;
         }
+
+        h2 {
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            margin-top: 6rem;
+            border: 1px solid #ced4da; /* Border color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+            padding: 20px; /* Padding inside the container */
+            margin-bottom:4rem;
+        }
+
+        .btn-sm {
+            background-color: #a52a2a;
+            color: white;
+        }
+
+            .btn-sm:hover {
+                background-color: #e6be8a;
+                color: black;
+            }
+
+        .btn-default {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+            .btn-default:hover {
+                background-color: #e2e6ea;
+                color: black;
+            }
     </style>
 </head>
 <body>
@@ -139,24 +179,20 @@
                     <tr>
                         <td>@Html.DisplayFor(modelItem => job.job_title)</td>
                         <td>@Html.DisplayFor(modelItem => job.job_loc)</td>
-                        <td>@Html.DisplayFor(modelItem => job.job_post_date)</td>
-                        <td>@Html.DisplayFor(modelItem => job.job_deadline)</td>
+                        <td>@job.job_post_date.ToString("yyyy-MM-dd")</td>
+                        <td>@job.job_deadline.ToString("yyyy-MM-dd")</td>
                         <td>
-                            @Html.ActionLink("Edit", "EditJobPost", new { id = job.job_id }) |
-                            @Html.ActionLink("Delete", "DeleteJobPost", new { id = job.job_id })
+                            @Html.ActionLink("Edit", "EditJobPost", new { id = job.job_id }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Delete", "DeleteJobPost", new { id = job.job_id }, new { @class = "btn btn-danger btn-sm" })
                         </td>
                     </tr>
                 }
             </table>
+            @Html.ActionLink("Back", "ManageCompanies", "Admin", null, new { @class = "btn btn-default" })
         }
-
-        <p>
-            @Html.ActionLink("Back to List", "ManageCompanies")
-        </p>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
-

@@ -62,9 +62,91 @@
                 color: white !important; /* Text color on hover */
             }
 
+        .nav-item + .nav-item {
+            margin-left: 10px; /* Adjust the space between each nav item */
+        }
+
         .container {
             margin-top: 6rem;
+            max-width: 1000px; /* Set maximum width of the container */
+            padding: 5px;
         }
+
+        .content-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            margin-bottom: 2rem;
+            max-width: 100%; /* Ensure content container takes full width */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+            .content-container h2 {
+                margin-bottom: 20px;
+                color: black;
+                font-family: 'Noto Sans', serif;
+                font-weight: bold;
+            }
+
+        .table-responsive {
+            display: flex;
+            justify-content: center; /* Center the table horizontally */
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%; /* Ensure table fits within the container */
+            color: #212529;
+        }
+
+            .table th {
+                background-color: #f8f9fa;
+                color: #495057;
+                font-weight: bold;
+            }
+
+            .table td {
+                vertical-align: middle;
+                border-bottom: 1px solid #ddd; /* Add light gray border at the bottom of cells */
+            }
+
+            .table thead th {
+                border-bottom: 2px solid black;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+                transition: background-color 0.5s ease;
+            }
+
+            .table tbody tr:hover {
+                background-color: #d4d4d4;
+                color: #212529;
+            }
+
+            .table a {
+                color: #007bff;
+            }
+
+                .table a:hover {
+                    color: #0056b3;
+                }
+
+        .btn-custom {
+            background-color: #a52a2a;
+            color: white !important;
+            border-color: #a52a2a;
+            margin-top: 5px;
+        }
+
+            .btn-custom:hover {
+                background-color: #e6be8a;
+                color: black !important;
+                border-color: #e6be8a;
+            }
     </style>
 </head>
 <body>
@@ -109,53 +191,48 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Events</h2>
-        <p>
-            @Html.ActionLink("Create New Event", "CreateEvent")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.event_name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.event_desc)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.event_date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.event_loc)
-                </th>
-                <th></th>
-            </tr>
-            @foreach (var item in Model)
+        <div class="content-container">
+            <h2>Events</h2>
+            @if (Model.Any())
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.event_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.event_desc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.event_date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.event_loc)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditEvent", new { id = item.event_id }) |
-                        @Html.ActionLink("Details", "DetailsEvent", new { id = item.event_id }) |
-                        @Html.ActionLink("Delete", "DeleteEvent", new { id = item.event_id })
-                    </td>
-                </tr>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Event Date</th>
+                                <th>Event Location</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.event_name)</td>
+                                    <td>@item.event_date.ToString("yyyy-MM-dd")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.event_loc)</td>
+                                    <td>
+                                        <a href="@Url.Action("EditEvent", new { id = item.event_id })" class="btn btn-custom">Edit</a>
+                                        <a href="@Url.Action("DetailsEvent", new { id = item.event_id })" class="btn btn-custom">Details</a>
+                                        <a href="@Url.Action("DeleteEvent", new { id = item.event_id })" class="btn btn-custom">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
-        </table>
+            else
+            {
+                <p>No Events Yet Posted.</p>
+            }
+            <a href="@Url.Action("CreateEvent")" class="btn btn-custom">Create New Event</a>
+        </div>
     </div>
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
-

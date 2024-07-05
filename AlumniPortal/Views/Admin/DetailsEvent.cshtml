@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Event Details";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home - Alumni Portal</title>
+    <title>Event Details - Alumni Portal</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -61,9 +62,103 @@
                 color: white !important; /* Text color on hover */
             }
 
-        .container {
-            margin: 0px;
+        .nav-item + .nav-item {
+            margin-left: 10px; /* Adjust the space between each nav item */
         }
+
+        .container {
+            margin-top: 6rem;
+            max-width: 1000px; /* Set maximum width of the container */
+            padding: 5px;
+        }
+
+        .content-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            margin-bottom: 2rem;
+            max-width: 100%; /* Ensure content container takes full width */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+            .content-container h2 {
+                margin-bottom: 20px;
+                color: black;
+                font-family: 'Noto Sans', serif;
+                font-weight: bold;
+            }
+
+        .table-responsive {
+            display: flex;
+            justify-content: center; /* Center the table horizontally */
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%; /* Ensure table fits within the container */
+            color: #212529;
+        }
+
+            .table th {
+                background-color: #f8f9fa;
+                color: #495057;
+                font-weight: bold;
+            }
+
+            .table td {
+                vertical-align: middle;
+                border-bottom: 1px solid #ddd; /* Add light gray border at the bottom of cells */
+            }
+
+            .table thead th {
+                border-bottom: 2px solid black;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+                transition: background-color 0.5s ease;
+            }
+
+            .table tbody tr:hover {
+                background-color: #d4d4d4;
+                color: #212529;
+            }
+
+            .table a {
+                color: #007bff;
+            }
+
+                .table a:hover {
+                    color: #0056b3;
+                }
+
+        .btn-custom {
+            background-color: #a52a2a;
+            color: white !important;
+            border-color: #a52a2a;
+            margin-top: 5px;
+        }
+
+            .btn-custom:hover {
+                background-color: #e6be8a;
+                color: black !important;
+                border-color: #e6be8a;
+            }
+
+        .btn-back {
+            background-color: #f9f9f9 !important;
+            color: black !important;
+            border-color: black;
+        }
+
+            .btn-back:hover {
+                background-color: #e6e6e6 !important; /* Slightly darker color on hover */
+                color: black !important;
+                border-color: black;
+            }
     </style>
 </head>
 <body>
@@ -108,58 +203,41 @@
         </nav>
     </header>
     <div class="container">
-        <h2>Event Details</h2>
-
-        <div>
-            <h4>Event</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.event_name)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.event_name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.event_desc)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.event_desc)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.event_date)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.event_date)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.event_loc)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.event_loc)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.event_post_date)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.event_post_date)
-                </dd>
-            </dl>
+        <div class="content-container">
+            <h2>Event Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Event Name</th>
+                            <td>@Html.DisplayFor(model => model.event_name)</td>
+                        </tr>
+                        <tr>
+                            <th>Event Description</th>
+                            <td>@Html.DisplayFor(model => model.event_desc)</td>
+                        </tr>
+                        <tr>
+                            <th>Event Date</th>
+                            <td>@String.Format("{0:d}", Model.event_date)</td>
+                        </tr>
+                        <tr>
+                            <th>Event Location</th>
+                            <td>@Html.DisplayFor(model => model.event_loc)</td>
+                        </tr>
+                        <tr>
+                            <th>Event Post Date</th>
+                            <td>@String.Format("{0:d}", Model.event_post_date)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div>
-                @Html.ActionLink("Edit", "EditEvent", new { id = Model.event_id }) |
-                @Html.ActionLink("Back to List", "Events")
+                @Html.ActionLink("Edit", "EditEvent", new { id = Model.event_id }, new { @class = "btn btn-custom" })
+                @Html.ActionLink("Back", "Events", null, new { @class = "btn btn-back btn-custom ml-2" })
             </div>
         </div>
     </div>
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
