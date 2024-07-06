@@ -338,6 +338,7 @@ namespace AlumniPortal.Controllers
                 var alumni = db.alum_tbl.SingleOrDefault(a => a.alum_num == viewModel.AlumNum);
                 if (alumni == null)
                 {
+                    TempData["ProfileUpdateStatus"] = "Error: Alumni not found.";
                     return HttpNotFound("Alumni not found.");
                 }
 
@@ -352,9 +353,11 @@ namespace AlumniPortal.Controllers
                 db.Entry(alumni).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
+                TempData["ProfileUpdateStatus"] = "Profile updated successfully.";
                 return RedirectToAction("AlumniProfile", new { id = alumni.alum_num });
             }
 
+            TempData["ProfileUpdateStatus"] = "Error: Unable to update profile.";
             return View(viewModel);
         }
 

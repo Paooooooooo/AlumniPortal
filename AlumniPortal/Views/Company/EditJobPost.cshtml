@@ -162,6 +162,7 @@
     <div class="container">
         <div class="form-container">
             <h2 class="text-left">Edit Job Post</h2>
+            <hr />
             @using (Html.BeginForm("EditJobPost", "Company", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()

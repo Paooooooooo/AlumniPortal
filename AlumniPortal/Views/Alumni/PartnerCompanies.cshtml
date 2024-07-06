@@ -147,6 +147,7 @@
     </header>
     <div class="container intro-container">
         <h2>Partner Companies</h2>
+        <hr />
         <div class="row">
             @foreach (var company in Model)
             {
@@ -156,10 +157,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">@company.comp_name</h5>
                                 <p class="card-text">
-                                     @company.comp_con_name<br />
-                                     @company.comp_con_num<br />
-                                     @company.comp_email<br />
-                                     @company.comp_address
+                                    @company.comp_con_name<br />
+                                    @company.comp_con_num<br />
+                                    @company.comp_email<br />
+                                    @company.comp_address
                                 </p>
                             </div>
                         </div>

@@ -340,7 +340,117 @@ namespace AlumniPortal.Controllers
             return RedirectToAction("CompanyDetails", new { id = companyId });
         }
 
-    public ActionResult Logout()
+        // GET: Admin/EditProfile
+        public ActionResult EditProfile(string id)
+        {
+            var adminId = Session["AdminId"] as string;
+
+            if (string.IsNullOrEmpty(adminId))
+            {
+                return RedirectToAction("LoginAdmin", "Account");
+            }
+
+            var admin = db.admin_tbl.SingleOrDefault(a => a.admin_id == adminId);
+            if (admin == null)
+            {
+                return HttpNotFound("Admin not found.");
+            }
+
+            var viewModel = new AdminProfileView
+            {
+                AdminId = admin.admin_id,
+                AdminName = admin.admin_name,
+                AdminEmail = admin.admin_email,
+                AdminCon = admin.admin_con,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(AdminProfileView viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var admin = db.admin_tbl.SingleOrDefault(a => a.admin_id == viewModel.AdminId);
+                if (admin == null)
+                {
+                    return HttpNotFound("Admin not found.");
+                }
+
+                admin.admin_id = viewModel.AdminId;
+                admin.admin_name = viewModel.AdminName;
+                admin.admin_email = viewModel.AdminEmail;
+                admin.admin_con = viewModel.AdminCon;
+
+                db.Entry(admin).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                // Update session AdminId if it was changed
+                Session["AdminId"] = admin.admin_id;
+
+                TempData["ProfileUpdated"] = "Profile updated successfully!";
+                return RedirectToAction("EditProfile", new { id = admin.admin_id });
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            var adminId = Session["AdminId"] as string;
+            if (string.IsNullOrEmpty(adminId))
+            {
+                return RedirectToAction("LoginAdmin", "Account");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(AdminChangePasswordView model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var adminId = Session["AdminId"] as string;
+            if (string.IsNullOrEmpty(adminId))
+            {
+                return RedirectToAction("LoginAdmin", "Account");
+            }
+
+            var admin = db.admin_tbl.SingleOrDefault(a => a.admin_id == adminId);
+            if (admin == null)
+            {
+                return HttpNotFound("Admin not found.");
+            }
+
+            if (admin.admin_password != model.CurrentPassword)
+            {
+                TempData["ErrorMessage"] = "Current password is incorrect.";
+                return View(model);
+            }
+
+            if (model.NewPassword != model.ConfirmNewPassword)
+            {
+                ModelState.AddModelError("", "New password and confirm password do not match.");
+                return View(model);
+            }
+
+            admin.admin_password = model.NewPassword;
+            db.Entry(admin).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            TempData["SuccessMessage"] = "Password changed successfully.";
+            return View();
+        }
+
+        public ActionResult Logout()
         {
             Session.Clear(); // Clear the session
             return RedirectToAction("Index", "Home");

@@ -148,27 +148,37 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background-color: #a52a2a;
+            background-color: #fff; /* Set background to white */
+            margin-bottom:3rem;
         }
+
         .item {
             display: flex;
             width: 80%;
-            background-color: #e6be8a;
-            border: 2px solid #e6be8a;
-            margin: 20px;
+            margin: 0 20px; /* Margin only top and bottom */
+            padding: 20px 0; /* Padding only top and bottom */
+            border-bottom: 1px solid #ccc; /* Horizontal line separator */
         }
 
             .item img {
                 width: 200px;
                 height: auto;
+                margin-right: 20px; /* Margin between image and description */
+                border: 2px solid #ccc; /* Add border to the image */
+                border-radius: 5px; /* Optional: rounded corners */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
             }
-            .name{
-                margin:10px;
-            }
+
         .description {
-            background-color: #e6be8a;
-            padding: 5px;
             flex: 1;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 18px;
+        }
+
+        .name {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 20px;
         }
     </style>
 
@@ -227,57 +237,55 @@
     <main>
         <div class="as-container">
             <div class="item">
-                <img src="path/to/image1.jpg" alt="Image 1">
+                <img src="~/Content/Images/pao.jpg"  alt="Image 1">
                 <div class="description">
-                    <b>Paolo Gabriel Belen</b><br><br>
-                    Paolo is a motivated Information Technology student at the Polytechnic University of the Philippines (PUP), distinguished for his strong analytical 
+                    <div class="name">Paolo Gabriel Belen</div>
+                    Paolo is a motivated Information Technology student at the Polytechnic University of the Philippines (PUP), distinguished for his strong analytical
                     mindset and passion for innovation in software engineering. With a solid foundation in programming languages and system architecture, Daniel consistently
-                    delivers exceptional results in both academic projects and extracurricular activities. He actively participates in coding competitions and hackathons, 
-                    where he collaborates with peers to develop cutting-edge solutions to real-world challenges. Outside of academics, Daniel is involved in mentoring junior 
-                    students, sharing his expertise and fostering a supportive learning environment within the university community. His commitment to excellence and his drive 
+                    delivers exceptional results in both academic projects and extracurricular activities. He actively participates in coding competitions and hackathons,
+                    where he collaborates with peers to develop cutting-edge solutions to real-world challenges. Outside of academics, Daniel is involved in mentoring junior
+                    students, sharing his expertise and fostering a supportive learning environment within the university community. His commitment to excellence and his drive
                     for continuous improvement position him as a future leader in the IT industry.
                 </div>
             </div>
             <div class="item">
                 <img src="~/Content/Images/drei.jpg" alt="Image 2">
                 <div class="description">
-                    <b>Alexandrei Dalisay</b><br><br>
-                    Alexandrei is a driven Information Technology student at the Polytechnic University of the Philippines (PUP), recognized for her exceptional problem-solving 
-                    abilities and creative approach to software development. Passionate about technology and innovation, Maria consistently excels in her academic endeavors, 
-                    demonstrating a strong grasp of programming languages and system design. She actively participates in the university’s tech events and hackathons, where she 
-                    collaborates with fellow students to develop innovative solutions. Outside her academic pursuits, Maria is committed to empowering other young women in tech 
-                    through mentorship and community involvement. Her dedication and forward-thinking mindset make her a standout student with a bright future in the IT industry.
+                    <div class="name">Alexandrei Dalisay</div>
+                    Alexandrei is an Information Technology student at the Polytechnic University of the Philippines (PUP) with a strong technical acumen and a flair for creative
+                    problem-solving. Known for his proficiency in multiple programming languages and frameworks, Sarah excels in developing innovative software applications that
+                    address complex issues. She has a proven track record of success in academic projects, where she applies her technical skills to deliver high-quality solutions
+                    on time. Sarah is also actively involved in tech communities and enjoys sharing knowledge through workshops and seminars. Her dedication to her craft and her
+                    passion for technology make her a valuable asset to any team or organization.
                 </div>
             </div>
             <div class="item">
-                <img src="path/to/image3.jpg" alt="Image 3">
+                <img src="~/Content/Images/red.png"  alt="Image 3">
                 <div class="description">
-                    <b>Justine Redinz Mendoza</b><br><br>
-                    Redinz is a dynamic Information Technology student at the Polytechnic University of the Philippines (PUP), known for his adept problem-solving skills 
-                    and passion for software development. With a knack for mastering new programming languages and frameworks, Michael thrives in challenging coding projects and 
-                    excels in his academic studies. He actively engages in the university's IT club, where he contributes to group projects and workshops aimed at enhancing 
-                    technical skills among peers. Beyond his technical prowess, Michael is an avid advocate for integrating technology into social causes, participating in 
-                    initiatives that leverage IT for community development. His blend of technical expertise and social consciousness marks him as a promising future leader in the 
-                    IT field.
+                    <div class="name">Justine Redinz Mendoza</div>
+                    Justine Redinz Mendoza is an Information Technology student at the Polytechnic University of the Philippines (PUP) who combines technical expertise with a
+                    creative approach to problem-solving. With a keen interest in software development and data analysis, Emily has successfully completed various projects that
+                    demonstrate her ability to apply theoretical knowledge to practical scenarios. She is adept at working in team environments and is known for her effective
+                    communication skills and collaborative spirit. Emily is also passionate about encouraging more women to pursue careers in technology and actively mentors
+                    female students in her community. Her commitment to excellence and innovation positions her as a future leader in the tech industry.
                 </div>
             </div>
             <div class="item">
-                <img src="~/Content/Images/aaron.jpg" alt="Image 4">
+                <img src="~/Content/Images/aaron.jpg"  alt="Image 4">
                 <div class="description">
-                    <b>Aaron Vergel Rebulanan</b><br><br>
-                    Meet Aaron, a diligent and ambitious student at the Polytechnic University of the Philippines (PUP), pursuing a degree in Information Technology. 
-                    With a keen interest in software development and a passion for innovation, Jane excels in her academic pursuits, consistently achieving top grades. 
-                    Beyond the classroom, hhe is actively involved in various extracurricular activities, including serving as a member of the university's tech club and 
-                    participating in community outreach programs. Her commitment to learning and her proactive approach to problem-solving make her a standout student and a 
-                    promising future leader in the tech industry.
+                    <div class="name">Aaron Rebuluanan</div>
+                    Aaron is an Information Technology student at the Polytechnic University of the Philippines (PUP) with a passion for cybersecurity and network administration.
+                    His academic journey is marked by a series of successful projects that showcase his technical proficiency and his ability to develop robust security solutions.
+                    Michael is dedicated to staying updated with the latest advancements in cybersecurity and actively participates in related workshops and conferences. He is also
+                    a member of the university’s cybersecurity club, where he collaborates with peers to tackle real-world security challenges. Michael's analytical skills,
+                    attention to detail, and commitment to safeguarding digital environments make him a promising professional in the field of cybersecurity.
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- User Type Modal -->
-    <div class="modal fade" id="userTypeModal" tabindex="-1" role="dialog" aria-labelledby="userTypeModalLabel"
-         aria-hidden="true">
+    <!-- Modal for User Type Selection -->
+    <div class="modal fade" id="userTypeModal" tabindex="-1" role="dialog" aria-labelledby="userTypeModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -287,19 +295,23 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- User type selection options -->
-                    <div class="user-type-option" onclick="selectUserType('Alumni')">Alumni</div>
-                    <div class="user-type-option" onclick="selectUserType('Company')">Company</div>
-                    <div class="user-type-option" onclick="selectUserType('Admin')">Admin</div>
+                    <div class="user-type-option" onclick="selectUserType('Alumni')">
+                        Alumni
+                    </div>
+                    <div class="user-type-option" onclick="selectUserType('Company')">
+                        Company
+                    </div>
+                    <div class="user-type-option" onclick="selectUserType('Admin')">
+                        Admin
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
 </body>
 </html>

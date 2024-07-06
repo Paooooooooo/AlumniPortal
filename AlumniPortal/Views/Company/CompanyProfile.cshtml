@@ -113,6 +113,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+            <!-- Add 'fixed-top' class to navbar -->
             <a class="navbar-brand text-white" href="/">
                 <img src="~/Content/Images/puplogo.png" alt="Logo" height="40" class="d-inline-block align-top mr-2">
                 PUP Alumni Portal
@@ -127,13 +128,10 @@
                         <a class="nav-link" href="/Company/Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Company/CompanyProfile">Company Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Company/JobPosts">Job Posts</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/Company/Events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Company/JobPosting">Job Posting</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -153,13 +151,20 @@
     <div class="container">
         <div class="form-container">
             <h2 class="text-left">Edit Profile</h2>
+            <hr />
+            @if (TempData["ProfileUpdateStatus"] != null)
+            {
+                <div class="alert @(TempData["ProfileUpdateStatus"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")">
+                    @TempData["ProfileUpdateStatus"]
+                </div>
+            }
             @using (Html.BeginForm("CompanyProfile", "Company", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.CompId)
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CompName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CompName, "Company Name", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
@@ -167,7 +172,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CompConNum, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CompConNum, "Contact Number", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CompConNum, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CompConNum, "", new { @class = "text-danger" })
@@ -175,7 +180,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CompConName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CompConName, "Contact Person", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CompConName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CompConName, "", new { @class = "text-danger" })
@@ -183,7 +188,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CompEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CompEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CompEmail, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CompEmail, "", new { @class = "text-danger" })
@@ -191,7 +196,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CompAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CompAddress, "Address", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CompAddress, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CompAddress, "", new { @class = "text-danger" })

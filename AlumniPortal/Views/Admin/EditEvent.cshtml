@@ -151,7 +151,7 @@
                             Settings
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/Admin/Profile">Profile</a>
+                            <a class="dropdown-item" href="/Admin/EditProfile">Profile</a>
                             <a class="dropdown-item" href="/Admin/ChangePassword">Change Password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Admin/Logout">Logout</a>
@@ -164,6 +164,7 @@
     <div class="container">
         <div class="form-container">
             <h2 class="text-left">Edit Event</h2>
+            <hr />
             @using (Html.BeginForm("EditEvent", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()

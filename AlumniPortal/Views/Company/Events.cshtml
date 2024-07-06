@@ -159,6 +159,7 @@
     </header>
     <div class="content-container">
         <h2>Events</h2>
+        <hr />
         <div class="row">
             @foreach (var event_tbl in Model)
             {
@@ -166,7 +167,9 @@
                     <div class="card event-card">
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => event_tbl.event_name)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => event_tbl.event_date)</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @event_tbl.event_date.ToString("yyyy-MM-dd")
+                            </h6>
                             <p class="card-text">@Html.Raw(Html.ConvertUrlsToLinks(event_tbl.event_desc))</p>
                             <p class="card-text"><small class="text-muted">Location: @Html.DisplayFor(modelItem => event_tbl.event_loc)</small></p>
                         </div>

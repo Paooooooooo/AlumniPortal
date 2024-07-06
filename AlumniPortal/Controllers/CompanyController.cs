@@ -176,7 +176,8 @@ namespace AlumniPortal.Controllers
                 var company = db.comp_tbl.SingleOrDefault(c => c.comp_id == viewModel.CompId);
                 if (company == null)
                 {
-                    return HttpNotFound("Company not found.");
+                    TempData["ProfileUpdateStatus"] = "Error: Company not found.";
+                    return RedirectToAction("CompanyProfile");
                 }
 
                 company.comp_name = viewModel.CompName;
@@ -188,9 +189,11 @@ namespace AlumniPortal.Controllers
                 db.Entry(company).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("CompanyProfile", new { id = company.comp_id });
+                TempData["ProfileUpdateStatus"] = "Profile updated successfully.";
+                return RedirectToAction("CompanyProfile");
             }
 
+            TempData["ProfileUpdateStatus"] = "Error: Invalid data.";
             return View(viewModel);
         }
 
