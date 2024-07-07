@@ -198,7 +198,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.alum_sex, "Sex", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.alum_sex, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.alum_sex, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. F, M" } })
                         @Html.ValidationMessageFor(model => model.alum_sex, "", new { @class = "text-danger" })
                     </div>
                 </div>

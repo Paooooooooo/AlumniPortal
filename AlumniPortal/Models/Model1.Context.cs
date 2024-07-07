@@ -35,7 +35,7 @@ namespace AlumniPortal.Models
         public virtual DbSet<job_post_tbl> job_post_tbl { get; set; }
         public virtual DbSet<alum_tbl> alum_tbl { get; set; }
         public virtual DbSet<dept_tbl> dept_tbl { get; set; }
-        public virtual DbSet<event_tbl> event_tbl { get; set; }
         public virtual DbSet<comp_tbl> comp_tbl { get; set; }
+        public virtual DbSet<event_tbl> event_tbl { get; set; }
     }
 }

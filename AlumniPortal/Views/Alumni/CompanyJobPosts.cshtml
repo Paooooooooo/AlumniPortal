@@ -75,13 +75,13 @@
             margin-bottom: 20px;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Initial shadow style */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
             .card:hover {
                 transform: scale(1.05);
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
                 text-decoration: none;
             }
 
@@ -163,17 +163,24 @@
     <div class="container">
         <h2>Job Posts</h2>
         <div class="row">
-            @foreach (var jobPost in Model)
+            @if (!Model.Any())
             {
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">@jobPost.job_title</h5>
-                            <p class="card-text">@jobPost.job_specs</p>
-                            <a href="@Url.Action("JobDetails", new { id = jobPost.job_id })" class="btn btn-primary">View Job Details</a>
+                <p>There are no Job Posts Yet.</p>
+            }
+            else
+            {
+                foreach (var jobPost in Model)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">@jobPost.job_title</h5>
+                                <p class="card-text">@jobPost.job_specs</p>
+                                <a href="@Url.Action("JobDetails", new { id = jobPost.job_id })" class="btn btn-primary">View Job Details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>

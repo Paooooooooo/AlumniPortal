@@ -99,7 +99,7 @@
           </Key>
           <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="admin_id" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="event_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="event_name" Type="varchar(max)" Nullable="false" />
           <Property Name="event_desc" Type="varchar(max)" />
           <Property Name="event_date" Type="date" Nullable="false" />
           <Property Name="event_post_date" Type="date" Nullable="false" />
@@ -245,12 +245,12 @@
             <End Role="alum_tbl" EntitySet="alum_tbl" />
             <End Role="cv_tbl" EntitySet="cv_tbl" />
           </AssociationSet>
-          <EntitySet Name="event_tbl" EntityType="AlumPortalDbModel.event_tbl" />
           <EntitySet Name="comp_tbl" EntityType="AlumPortalDbModel.comp_tbl" />
           <AssociationSet Name="FK_job_post_tbl_comp_tbl" Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl">
             <End Role="comp_tbl" EntitySet="comp_tbl" />
             <End Role="job_post_tbl" EntitySet="job_post_tbl" />
           </AssociationSet>
+          <EntitySet Name="event_tbl" EntityType="AlumPortalDbModel.event_tbl" />
         </EntityContainer>
         <EntityType Name="cv_tbl">
           <Key>
@@ -314,18 +314,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="event_tbl">
-          <Key>
-            <PropertyRef Name="event_id" />
-          </Key>
-          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="admin_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="event_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="event_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="event_loc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="comp_tbl">
           <Key>
             <PropertyRef Name="comp_id" />
@@ -351,6 +339,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="event_tbl">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="event_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="event_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_post_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_loc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -466,19 +466,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="event_tbl">
-            <EntityTypeMapping TypeName="AlumPortalDbModel.event_tbl">
-              <MappingFragment StoreEntitySet="event_tbl">
-                <ScalarProperty Name="event_loc" ColumnName="event_loc" />
-                <ScalarProperty Name="event_post_date" ColumnName="event_post_date" />
-                <ScalarProperty Name="event_date" ColumnName="event_date" />
-                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
-                <ScalarProperty Name="event_name" ColumnName="event_name" />
-                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
-                <ScalarProperty Name="event_id" ColumnName="event_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="comp_tbl">
             <EntityTypeMapping TypeName="AlumPortalDbModel.comp_tbl">
               <MappingFragment StoreEntitySet="comp_tbl">
@@ -489,6 +476,19 @@
                 <ScalarProperty Name="comp_con_num" ColumnName="comp_con_num" />
                 <ScalarProperty Name="comp_name" ColumnName="comp_name" />
                 <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_tbl">
+            <EntityTypeMapping TypeName="AlumPortalDbModel.event_tbl">
+              <MappingFragment StoreEntitySet="event_tbl">
+                <ScalarProperty Name="event_loc" ColumnName="event_loc" />
+                <ScalarProperty Name="event_post_date" ColumnName="event_post_date" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_desc" ColumnName="event_desc" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

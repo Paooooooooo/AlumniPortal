@@ -16,9 +16,9 @@
         <EntityTypeShape EntityType="AlumPortalDbModel.alum_tbl" Width="1.5" PointX="8" PointY="3.5" />
         <EntityTypeShape EntityType="AlumPortalDbModel.dept_tbl" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="AlumPortalDbModel.FK_cv_tbl_alum_tbl" />
-        <EntityTypeShape EntityType="AlumPortalDbModel.event_tbl" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="AlumPortalDbModel.comp_tbl" Width="1.5" PointX="1.5" PointY="10.5" />
         <AssociationConnector Association="AlumPortalDbModel.FK_job_post_tbl_comp_tbl" />
+        <EntityTypeShape EntityType="AlumPortalDbModel.event_tbl" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

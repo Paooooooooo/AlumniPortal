@@ -178,7 +178,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.job_target, "Field", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_target, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.job_target, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. BSIT, BSCS, BSCE, Engineer, Management"} })
                         @Html.ValidationMessageFor(model => model.job_target, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.job_specs, "Job Specifications", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.job_specs, new { @class = "form-control", rows = 4 }) <!-- rows attribute determines the visible number of rows -->
+                        @Html.TextAreaFor(model => model.job_specs, new { @class = "form-control", rows = 4, placeholder = "Enter Description"}) <!-- rows attribute determines the visible number of rows -->
                         @Html.ValidationMessageFor(model => model.job_specs, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.job_type, "Job Type", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.job_type, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.job_type, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. Full-Time, Part-Time, Intern" } })
                         @Html.ValidationMessageFor(model => model.job_type, "", new { @class = "text-danger" })
                     </div>
                 </div>
